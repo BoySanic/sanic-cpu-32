@@ -1,4 +1,4 @@
 XORI GP1, #1
 ADD GP0, GP1
 ADD GP1, GP0
-JMP #-2
+JMP #-3

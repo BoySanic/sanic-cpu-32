@@ -14,7 +14,7 @@ class OperandType(Enum):
     IntegerImmediate16 = 2
     IntegerImmediate15 = 3
     AddressImmediate = 4
-    Condition = 5
+    RegSpacer = 5
     SpecialRegister = 6
     One = 7
     Zero = 8
@@ -25,13 +25,12 @@ operandtype_prefixes = {
     OperandType.IntegerImmediate16: "#",
     OperandType.IntegerImmediate15: "#",
     OperandType.AddressImmediate: "$",
-    OperandType.Condition: "",
     OperandType.SpecialRegister: ""
 }
 
 class Operand:
     operand_type: OperandType
-    offset_1: int
+    offset: int
     def __init__(self, operand_type, offset):
         self.operand_type = operand_type
         self.offset = offset
@@ -42,7 +41,7 @@ class Operands:
     IntegerImmediate20 = Operand(OperandType.IntegerImmediate20, 20)
     IntegerImmediate16 = Operand(OperandType.IntegerImmediate16, 16)
     IntegerImmediate15 = Operand(OperandType.IntegerImmediate15, 15)
-    Condition = Operand(OperandType.Condition, 4)
+    RegSpacer = Operand(OperandType.RegSpacer, 5)
 
 class Opcode:
     operand_1: Operand
@@ -119,17 +118,17 @@ instruction_table = {
     "BGEU":     Opcode(Operands.Register,           Operands.Register,              None,                           None, 41),
     "BGTU":     Opcode(Operands.Register,           Operands.Register,              None,                           None, 42),
 
-    "JMP":      Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 48),
-    "JEQ":      Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 49),
-    "JNE":      Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 50),
-    "JLE":      Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 51),
-    "JLT":      Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 52),
-    "JGT":      Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 53),
-    "JGE":      Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 54),
-    "JLEU":     Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 55),
-    "JLTU":     Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 56),
-    "JGEU":     Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 57),
-    "JGTU":     Opcode(Operands.IntegerImmediate16, None,                           None,                           None, 58),
+    "JMP":      Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 48),
+    "JEQ":      Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 49),
+    "JNE":      Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 50),
+    "JLE":      Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 51),
+    "JLT":      Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 52),
+    "JGT":      Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 53),
+    "JGE":      Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 54),
+    "JLEU":     Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 55),
+    "JLTU":     Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 56),
+    "JGEU":     Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 57),
+    "JGTU":     Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 58),
 
     "ADD":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000000),
     "SUB":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000001),
@@ -172,8 +171,7 @@ if len(sys.argv) > 1:
 #ADD  GP0, GP1
 
 
-# First, get all lines, and attempt to find instructions that match the opcode (split by " ", first cell is opcode)
-# If any are found that don't match an instruction, error with the line # and reason like a compiler.
+
 def pack_operand(instruction, operand, offset, bit_width):
     if operand is None:
         return instruction, offset
@@ -182,6 +180,8 @@ def pack_operand(instruction, operand, offset, bit_width):
     offset += bit_width
     return instruction, offset
 
+# First, get all lines, and attempt to find instructions that match the opcode (split by " ", first cell is opcode)
+# If any are found that don't match an instruction, error with the line # and reason like a compiler.
 instructions =  []
 instruction_opcode_decoded = []
 with open(assembly_file, "r") as af:
@@ -197,8 +197,12 @@ with open(assembly_file, "r") as af:
             errors.append( line + "\n^" + right_justified_error)
         opcode = instruction_table[opcode_str]
         arguments = line[len(opcode_str):].strip().split(",")
-        operand_1 = arguments[0].strip()
-        operand_2 = ""
+        if(opcode.operand_1 == Operands.RegSpacer):
+                operand_1 = ""
+                operand_2 = arguments[0].strip()
+        else:
+            operand_1 = arguments[0].strip()
+            operand_2 = ""
         operand_3 = ""
         operand_4 = ""
         if len(arguments) > 1:
@@ -208,7 +212,7 @@ with open(assembly_file, "r") as af:
         if len(arguments) > 3:
             operand_4 = arguments[3].strip()
 
-        if opcode.operand_1 != None:
+        if opcode.operand_1 != None and opcode.operand_1 != Operands.RegSpacer:
             if opcode.operand_1.operand_type != OperandType.Register and opcode.operand_1.operand_type != OperandType.SpecialRegister and opcode.operand_1.operand_type != OperandType.Condition:
                 if operand_1[0] != operandtype_prefixes[opcode.operand_1.operand_type]:
                     operand_start = line.find(operand_1)
@@ -227,13 +231,8 @@ with open(assembly_file, "r") as af:
                     right_justified_error = " " * operand_start + "^Immediate not decodable to integer."
                     errors.append( line + "\n" +  right_justified_error)
                     continue
-            if opcode.operand_1.operand_type == OperandType.Condition and not operand_1 in BranchCond.__members__:
-                operand_start = line.find(operand_1)
-                right_justified_error = " " * operand_start + "^Invalid Condition"
-                errors.append( line + "\n" +  right_justified_error)
-                continue
         if opcode.operand_2 != None:
-            if opcode.operand_2.operand_type != OperandType.Register and opcode.operand_2.operand_type != OperandType.SpecialRegister and opcode.operand_2.operand_type != OperandType.Condition:
+            if opcode.operand_2.operand_type != OperandType.Register and opcode.operand_2.operand_type != OperandType.SpecialRegister:
                 if operand_2[0] != operandtype_prefixes[opcode.operand_2.operand_type]:
                     operand_start = line.find(operand_2)
                     right_justified_error = " " * operand_start + "^Invalid operand - possibly bad symbol"
@@ -334,41 +333,34 @@ for decode_middle in instruction_opcode_decoded:
     operand_2 = None
     operand_3 = None
     operand_4 = None
-    if decode_middle.opcode.operand_1 != None:
+    if decode_middle.opcode.operand_1 != None and decode_middle.opcode.operand_1 != Operands.RegSpacer:
         if decode_middle.opcode.operand_1.operand_type == OperandType.Register:
             operand_1 = Register[decode_middle.operand_1].value
         if decode_middle.opcode.operand_1.operand_type == OperandType.AddressImmediate or decode_middle.opcode.operand_1.operand_type == OperandType.IntegerImmediate20 or decode_middle.opcode.operand_1.operand_type == OperandType.IntegerImmediate16:
             operand_1 = int(decode_middle.operand_1)
-        if decode_middle.opcode.operand_1.operand_type == OperandType.Condition:
-            operand_1 = BranchCond[decode_middle.operand_1].value
     # Operand 2
     if decode_middle.opcode.operand_2 != None:
         if decode_middle.opcode.operand_2.operand_type == OperandType.Register:
             operand_2 = Register[decode_middle.operand_2].value
         if decode_middle.opcode.operand_2.operand_type == OperandType.AddressImmediate or decode_middle.opcode.operand_2.operand_type == OperandType.IntegerImmediate20 or decode_middle.opcode.operand_2.operand_type == OperandType.IntegerImmediate16:
             operand_2 = int(decode_middle.operand_2)
-        if decode_middle.opcode.operand_2.operand_type == OperandType.Condition:
-            operand_2 = BranchCond[decode_middle.operand_2].value
     # Operand 3
     if decode_middle.opcode.operand_3 != None:
         if decode_middle.opcode.operand_3.operand_type == OperandType.Register:
             operand_3 = Register[decode_middle.operand_3].value
         if decode_middle.opcode.operand_3.operand_type == OperandType.AddressImmediate or decode_middle.opcode.operand_3.operand_type == OperandType.IntegerImmediate20 or decode_middle.opcode.operand_3.operand_type == OperandType.IntegerImmediate16:
             operand_3 = int(decode_middle.operand_3)
-        if decode_middle.opcode.operand_3.operand_type == OperandType.Condition:
-            operand_3 = BranchCond[decode_middle.operand_3].value
     # Operand 4
     if decode_middle.opcode.operand_4 != None:
         if decode_middle.opcode.operand_4.operand_type == OperandType.Register:
             operand_4 = Register[decode_middle.operand_4].value
         if decode_middle.opcode.operand_4.operand_type == OperandType.AddressImmediate or decode_middle.opcode.operand_4.operand_type == OperandType.IntegerImmediate20 or decode_middle.opcode.operand_4.operand_type == OperandType.IntegerImmediate16:
             operand_4 = int(decode_middle.operand_4)
-        if decode_middle.opcode.operand_4.operand_type == OperandType.Condition:
-            operand_4 = BranchCond[decode_middle.operand_4].value
     
     instruction = decode_middle.opcode.machine_code
     offset = 7
-    
+    if(decode_middle.opcode.operand_1 == Operands.RegSpacer):
+        offset += Operands.RegSpacer.offset
     if(operand_1 != None):
         instruction, offset = pack_operand(instruction, operand_1, offset, decode_middle.opcode.operand_1.offset)
     if(operand_2 != None):

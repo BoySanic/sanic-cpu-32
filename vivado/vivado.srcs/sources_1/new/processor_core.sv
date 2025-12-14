@@ -26,7 +26,7 @@ module processor_core(
         output [21:0] PERIPH_ADDR_OUT
     );
     
-    reg [31:0] ROM [21:0];
+    reg [31:0] ROM [4194304:0];
     
     initial begin
         ROM[0] = 32'h0ffff063;
@@ -34,7 +34,7 @@ module processor_core(
     end
     
     wire [31:0] FLAGS_CU, ACC_CU, AUX_CU, IR_CU, MDR_OUT_BUS;
-    wire [23:0] PC_OUT_BUS, MAR_OUT;
+    reg [23:0] PC_OUT_BUS, MAR_OUT;
     wire bs_state, next_instruction, pc_write_enable;
     wire [1:0] cycle_cnt;
     wire [31:0] REG_READ_A, REG_READ_B;
@@ -43,7 +43,7 @@ module processor_core(
     wire REG_WRITE_ENABLE_OUT, ALU_ENABLE, MAR_WRITE_ENABLE, MDR_WRITE_ENABLE, MDR_READ_ENABLE;
     wire [31:0] ALU_OPER_1, ALU_OPER_2, MDR_WRITE_DATA, REG_WRITE_DATA;
     wire [31:0] ALU_FLAGS, ALU_ACC, ALU_AUX, MEM_IR, MDR_IN_BUS;
-    wire [23:0] PC_IN_BUS, MAR_IN_BUS;
+    reg [23:0] PC_IN_BUS, MAR_IN_BUS;
     wire [23:0] PC_WRITE_DATA, MAR_WRITE_DATA;
     wire [4:0] REG_WRITE_SELECTOR, REG_READ_A_SELECTOR, REG_READ_B_SELECTOR;
     
@@ -162,4 +162,15 @@ module processor_core(
         .REG_WRITE_ENABLE (REG_WRITE_ENABLE_OUT),
         .CLK_IN (CLK100MHz)
     );
+    
+    always @(posedge CLK100MHz) begin
+        if(NEXT_INSTRUCTION || pc_write_enable) begin
+            if(pc_write_enable) begin
+                assign PC_IN_BUS = PC_WRITE_DATA;
+            end 
+            else if (next_instruction) begin
+                assign PC_IN_BUS = PC_OUT_BUS + 1;
+            end
+        end
+    end
 endmodule

@@ -320,7 +320,7 @@
       <a name="addrWidth" val="22"/>
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 22 32
-10d6 1040 c0 fffd030
+ffff063 800e3 1061 1160
 </a>
       <a name="dataWidth" val="32"/>
     </comp>
@@ -623,14 +623,12 @@
     <wire from="(3430,670)" to="(3480,670)"/>
     <wire from="(3430,690)" to="(3430,740)"/>
     <wire from="(3430,690)" to="(3480,690)"/>
-    <wire from="(3460,580)" to="(3470,580)"/>
-    <wire from="(3470,580)" to="(3470,600)"/>
-    <wire from="(3470,600)" to="(3500,600)"/>
+    <wire from="(3460,580)" to="(3500,580)"/>
     <wire from="(3480,460)" to="(3480,670)"/>
     <wire from="(3480,710)" to="(3480,750)"/>
     <wire from="(3480,750)" to="(3670,750)"/>
-    <wire from="(3500,540)" to="(3500,600)"/>
-    <wire from="(3500,600)" to="(3500,670)"/>
+    <wire from="(3500,540)" to="(3500,580)"/>
+    <wire from="(3500,580)" to="(3500,670)"/>
     <wire from="(3500,710)" to="(3500,880)"/>
     <wire from="(3510,710)" to="(3510,730)"/>
     <wire from="(3510,730)" to="(3520,730)"/>
@@ -4037,9 +4035,7 @@
 010111001 0000000100000000000000000
 000111010 0000010000000010010010001
 010111010 0000000100000000000000000
-001100000 1010100000000000000000000
-011100000 1100000000000000000000000
-101100000 0000001100001000000000000
+001100000 1100101100001000000000000
 001100001 0110110000000000000000000
 011100001 0000000000000000001000000
 101100001 0000000100000000000000000
@@ -4236,13 +4232,13 @@
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Sign extend 16-bit value to 24-bit"/>
     </comp>
+    <comp lib="6" loc="(1868,2594)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Get 24-bit value from 32-bit register"/>
+    </comp>
     <comp lib="6" loc="(1875,225)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
       <a name="text" val="Unsigned A &gt; B"/>
-    </comp>
-    <comp lib="6" loc="(1880,2605)" name="Text">
-      <a name="font" val="SansSerif plain 12"/>
-      <a name="text" val="Get 24-bit value from 32-bit register"/>
     </comp>
     <comp lib="6" loc="(1975,230)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
@@ -4424,8 +4420,6 @@
     <wire from="(1570,160)" to="(1590,160)"/>
     <wire from="(1570,1880)" to="(1570,2250)"/>
     <wire from="(1570,1880)" to="(1670,1880)"/>
-    <wire from="(1570,2620)" to="(1570,2650)"/>
-    <wire from="(1570,2620)" to="(1650,2620)"/>
     <wire from="(1570,580)" to="(1570,610)"/>
     <wire from="(1570,60)" to="(1570,90)"/>
     <wire from="(1570,60)" to="(2080,60)"/>
@@ -4476,6 +4470,7 @@
     <wire from="(1640,2420)" to="(1660,2420)"/>
     <wire from="(1640,760)" to="(1640,1230)"/>
     <wire from="(1650,1210)" to="(1690,1210)"/>
+    <wire from="(1650,2620)" to="(1650,2650)"/>
     <wire from="(1650,760)" to="(1650,1210)"/>
     <wire from="(1660,1190)" to="(1790,1190)"/>
     <wire from="(1660,140)" to="(1660,550)"/>

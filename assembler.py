@@ -262,7 +262,7 @@ with open(assembly_file, "r") as af:
                     errors.append( line + "\n" +  right_justified_error)
                     continue
         if opcode.operand_3 != None:
-            if len(operand_3) > 0 and opcode.operand_3.operand_type != OperandType.Register and opcode.operand_3.operand_type != OperandType.SpecialRegister and opcode.operand_3.operand_type != OperandType.Condition:
+            if len(operand_3) > 0 and opcode.operand_3.operand_type != OperandType.Register and opcode.operand_3.operand_type != OperandType.SpecialRegister:
                 if operand_3[0] != operandtype_prefixes[opcode.operand_3.operand_type]:
                     operand_start = line.find(operand_3)
                     right_justified_error = " " * operand_start + "^Invalid operand - possibly bad symbol"
@@ -292,7 +292,7 @@ with open(assembly_file, "r") as af:
                     errors.append( line + "\n" +  right_justified_error)
                     continue
         if opcode.operand_4 != None:
-            if len(operand_4) > 0 and opcode.operand_4.operand_type != OperandType.Register and opcode.operand_4.operand_type != OperandType.SpecialRegister and opcode.operand_4.operand_type != OperandType.Condition:
+            if len(operand_4) > 0 and opcode.operand_4.operand_type != OperandType.Register and opcode.operand_4.operand_type != OperandType.SpecialRegister:
                 if operand_4[0] != operandtype_prefixes[opcode.operand_4.operand_type]:
                     operand_start = line.find(operand_4)
                     right_justified_error = " " * operand_start + "^Invalid operand - possibly bad symbol"

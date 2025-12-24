@@ -27,6 +27,7 @@ module register_file(
         output [31:0] REG_READ_DATA_B,
         input [4:0] REG_WRITE_SELECTOR,
         input [31:0] REG_WRITE_DATA_IN,
+        input REG_CLEAR_ENABLE,
         input REG_WRITE_ENABLE,
         input CLK_IN
     );
@@ -34,10 +35,18 @@ module register_file(
     
     assign REG_READ_DATA_A = regN[REG_READ_SELECTOR_A];
     assign REG_READ_DATA_B = regN[REG_READ_SELECTOR_B];
-
+    
+    initial begin
+        integer i;
+        for(i = 0; i < 32; i = i + 1)begin
+            regN[i] = 0;
+        end
+    end
     always @(posedge CLK_IN) begin
         if(REG_WRITE_ENABLE) begin
             regN[REG_WRITE_SELECTOR] <= REG_WRITE_DATA_IN;
+        end else if (REG_CLEAR_ENABLE) begin
+            regN[REG_WRITE_SELECTOR] <= 0;
         end
     end
     

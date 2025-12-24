@@ -3,11 +3,11 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Thu Nov 27 14:38:33 2025
-# Process ID         : 5112
+# Start of session at: Tue Dec 23 10:56:39 2025
+# Process ID         : 14572
 # Current directory  : C:/Users/boyso/git/saniccpu/vivado/vivado.runs/synth_1
-# Command line       : vivado.exe -log top_level.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_level.tcl
-# Log file           : C:/Users/boyso/git/saniccpu/vivado/vivado.runs/synth_1/top_level.vds
+# Command line       : vivado.exe -log processor_core.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source processor_core.tcl
+# Log file           : C:/Users/boyso/git/saniccpu/vivado/vivado.runs/synth_1/processor_core.vds
 # Journal file       : C:/Users/boyso/git/saniccpu/vivado/vivado.runs/synth_1\vivado.jou
 # Running On         : Death
 # Platform           : Windows Server 2016 or Windows 10
@@ -17,8 +17,8 @@
 # CPU Physical cores : 12
 # CPU Logical cores  : 20
 # Host memory        : 34171 MB
-# Swap memory        : 64424 MB
-# Total Virtual      : 98595 MB
-# Available Virtual  : 54393 MB
+# Swap memory        : 89063 MB
+# Total Virtual      : 123235 MB
+# Available Virtual  : 38072 MB
 #-----------------------------------------------------------
-source top_level.tcl -notrace
+source processor_core.tcl -notrace

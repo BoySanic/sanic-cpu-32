@@ -34,7 +34,7 @@ module protected_reg24(
         if(write_enable) begin
             data <= data_in;
         end else if (reset) begin
-            data <= 31'd0;
+            data <= 32'd0;
         end
     end
 endmodule

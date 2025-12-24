@@ -30,6 +30,9 @@ module protected_reg32(
     reg [31:0] data;
     assign data_out = data;
     
+    initial begin
+        data <= 31'd0;
+    end
     always@ (posedge CLK_IN) begin
         if(write_enable) begin
             data <= data_in;

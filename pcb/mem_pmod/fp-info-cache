@@ -1,4 +1,4 @@
-1766875883956
+26610201053170868
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -99378,6 +99378,13 @@ Logo WEEE
 0
 0
 0
+TI-SN74AHC1G02DBVRE4
+SOT95P280X145-5N
+DBV (R-PDSO-G5)
+Integrated Circuit
+0
+5
+5
 TerminalBlock
 TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm
 terminal block MaiXu MX126-5.0-02P, 2 pins, pitch 5mm, size 10.5x7.8mm, drill diameter 1.3mm, pad diameter 2.8mm, https://www.lcsc.com/datasheet/lcsc_datasheet_2309150913_MAX-MX126-5-0-03P-GN01-Cu-S-A_C5188435.pdf, script-generated using https://gitlab.com/kicad/libraries/kicad-footprint-generator/-/tree/master/scripts/TerminalBlock_MaiXu
@@ -105650,720 +105657,34 @@ valve
 0
 9
 8
-Varistor
-RV_Disc_D7mm_W3.4mm_P5mm
-Varistor, diameter 7mm, width 3.4mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W3.5mm_P5mm
-Varistor, diameter 7mm, width 3.5mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W3.6mm_P5mm
-Varistor, diameter 7mm, width 3.6mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W3.7mm_P5mm
-Varistor, diameter 7mm, width 3.7mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W3.8mm_P5mm
-Varistor, diameter 7mm, width 3.8mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W3.9mm_P5mm
-Varistor, diameter 7mm, width 3.9mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W4.2mm_P5mm
-Varistor, diameter 7mm, width 4.2mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W4.3mm_P5mm
-Varistor, diameter 7mm, width 4.3mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W4.5mm_P5mm
-Varistor, diameter 7mm, width 4.5mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W4.8mm_P5mm
-Varistor, diameter 7mm, width 4.8mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W4.9mm_P5mm
-Varistor, diameter 7mm, width 4.9mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W4mm_P5mm
-Varistor, diameter 7mm, width 4mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W5.1mm_P5mm
-Varistor, diameter 7mm, width 5.1mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W5.4mm_P5mm
-Varistor, diameter 7mm, width 5.4mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W5.5mm_P5mm
-Varistor, diameter 7mm, width 5.5mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D7mm_W5.7mm_P5mm
-Varistor, diameter 7mm, width 5.7mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W3.3mm_P5mm
-Varistor, diameter 9mm, width 3.3mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W3.4mm_P5mm
-Varistor, diameter 9mm, width 3.4mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W3.5mm_P5mm
-Varistor, diameter 9mm, width 3.5mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W3.6mm_P5mm
-Varistor, diameter 9mm, width 3.6mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W3.7mm_P5mm
-Varistor, diameter 9mm, width 3.7mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W3.8mm_P5mm
-Varistor, diameter 9mm, width 3.8mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W3.9mm_P5mm
-Varistor, diameter 9mm, width 3.9mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W4.1mm_P5mm
-Varistor, diameter 9mm, width 4.1mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W4.2mm_P5mm
-Varistor, diameter 9mm, width 4.2mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W4.4mm_P5mm
-Varistor, diameter 9mm, width 4.4mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W4.5mm_P5mm
-Varistor, diameter 9mm, width 4.5mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W4.8mm_P5mm
-Varistor, diameter 9mm, width 4.8mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W4mm_P5mm
-Varistor, diameter 9mm, width 4mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W5.2mm_P5mm
-Varistor, diameter 9mm, width 5.2mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W5.4mm_P5mm
-Varistor, diameter 9mm, width 5.4mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W5.5mm_P5mm
-Varistor, diameter 9mm, width 5.5mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W5.7mm_P5mm
-Varistor, diameter 9mm, width 5.7mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D9mm_W6.1mm_P5mm
-Varistor, diameter 9mm, width 6.1mm, pitch 5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W3.9mm_P7.5mm
-Varistor, diameter 12mm, width 3.9mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W4.2mm_P7.5mm
-Varistor, diameter 12mm, width 4.2mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W4.3mm_P7.5mm
-Varistor, diameter 12mm, width 4.3mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W4.4mm_P7.5mm
-Varistor, diameter 12mm, width 4.4mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W4.5mm_P7.5mm
-Varistor, diameter 12mm, width 4.5mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W4.6mm_P7.5mm
-Varistor, diameter 12mm, width 4.6mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W4.7mm_P7.5mm
-Varistor, diameter 12mm, width 4.7mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W4.8mm_P7.5mm
-Varistor, diameter 12mm, width 4.8mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W4mm_P7.5mm
-Varistor, diameter 12mm, width 4mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W5.1mm_P7.5mm
-Varistor, diameter 12mm, width 5.1mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W5.4mm_P7.5mm
-Varistor, diameter 12mm, width 5.4mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W5.8mm_P7.5mm
-Varistor, diameter 12mm, width 5.8mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W5mm_P7.5mm
-Varistor, diameter 12mm, width 5mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W6.1mm_P7.5mm
-Varistor, diameter 12mm, width 6.1mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W6.2mm_P7.5mm
-Varistor, diameter 12mm, width 6.2mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W6.3mm_P7.5mm
-Varistor, diameter 12mm, width 6.3mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W6.7mm_P7.5mm
-Varistor, diameter 12mm, width 6.7mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W7.1mm_P7.5mm
-Varistor, diameter 12mm, width 7.1mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W7.5mm_P7.5mm
-Varistor, diameter 12mm, width 7.5mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D12mm_W7.9mm_P7.5mm
-Varistor, diameter 12mm, width 7.9mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W3.9mm_P7.5mm
-Varistor, diameter 15.5mm, width 3.9mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W4.2mm_P7.5mm
-Varistor, diameter 15.5mm, width 4.2mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W4.3mm_P7.5mm
-Varistor, diameter 15.5mm, width 4.3mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W4.4mm_P7.5mm
-Varistor, diameter 15.5mm, width 4.4mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W4.5mm_P7.5mm
-Varistor, diameter 15.5mm, width 4.5mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W4.6mm_P7.5mm
-Varistor, diameter 15.5mm, width 4.6mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W4.7mm_P7.5mm
-Varistor, diameter 15.5mm, width 4.7mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W4.8mm_P7.5mm
-Varistor, diameter 15.5mm, width 4.8mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W4.9mm_P7.5mm
-Varistor, diameter 15.5mm, width 4.9mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W4mm_P7.5mm
-Varistor, diameter 15.5mm, width 4mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W5.2mm_P7.5mm
-Varistor, diameter 15.5mm, width 5.2mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W5.4mm_P7.5mm
-Varistor, diameter 15.5mm, width 5.4mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W5.9mm_P7.5mm
-Varistor, diameter 15.5mm, width 5.9mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W5mm_P7.5mm
-Varistor, diameter 15.5mm, width 5mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W6.1mm_P7.5mm
-Varistor, diameter 15.5mm, width 6.1mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W6.3mm_P7.5mm
-Varistor, diameter 15.5mm, width 6.3mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W6.4mm_P7.5mm
-Varistor, diameter 15.5mm, width 6.4mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W6.8mm_P7.5mm
-Varistor, diameter 15.5mm, width 6.8mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W7.2mm_P7.5mm
-Varistor, diameter 15.5mm, width 7.2mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W7.5mm_P7.5mm
-Varistor, diameter 15.5mm, width 7.5mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W8mm_P7.5mm
-Varistor, diameter 15.5mm, width 8mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D15.5mm_W11mm_P7.5mm
-Varistor, diameter 15.5mm, width 11mm, pitch 7.5mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D16.5mm_W6.7mm_P7.5mm
-Varistor, diameter 16.5mm, width 6.7mm, pitch 5mm, https://katalog.we-online.de/pbs/datasheet/820542711.pdf
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W4.3mm_P10mm
-Varistor, diameter 21.5mm, width 4.3mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W4.4mm_P10mm
-Varistor, diameter 21.5mm, width 4.4mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W4.5mm_P10mm
-Varistor, diameter 21.5mm, width 4.5mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W4.6mm_P10mm
-Varistor, diameter 21.5mm, width 4.6mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W4.7mm_P10mm
-Varistor, diameter 21.5mm, width 4.7mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W4.8mm_P10mm
-Varistor, diameter 21.5mm, width 4.8mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W4.9mm_P10mm
-Varistor, diameter 21.5mm, width 4.9mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W5.1mm_P10mm
-Varistor, diameter 21.5mm, width 5.1mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W5.3mm_P10mm
-Varistor, diameter 21.5mm, width 5.3mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W5.4mm_P10mm
-Varistor, diameter 21.5mm, width 5.4mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W5.6mm_P10mm
-Varistor, diameter 21.5mm, width 5.6mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W5.8mm_P10mm
-Varistor, diameter 21.5mm, width 5.8mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W5mm_P10mm
-Varistor, diameter 21.5mm, width 5mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W6.1mm_P7.5mm
-varistor
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W6.3mm_P10mm
-Varistor, diameter 21.5mm, width 6.3mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W6.5mm_P10mm
-Varistor, diameter 21.5mm, width 6.5mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W6.7mm_P10mm
-Varistor, diameter 21.5mm, width 6.7mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W6.8mm_P10mm
-Varistor, diameter 21.5mm, width 6.8mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W7.1mm_P10mm
-Varistor, diameter 21.5mm, width 7.1mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W7.5mm_P10mm
-Varistor, diameter 21.5mm, width 7.5mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W7.9mm_P10mm
-Varistor, diameter 21.5mm, width 7.9mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W8.4mm_P10mm
-Varistor, diameter 21.5mm, width 8.4mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Disc_D21.5mm_W11.4mm_P10mm
-Varistor, diameter 21.5mm, width 11.4mm, pitch 10mm
-varistor SIOV
-0
-2
-2
-Varistor
-RV_Rect_V25S440P_L26.5mm_W8.2mm_P12.7mm
-Varistor, V25S440P, https://www.littelfuse.com/media?resourcetype=datasheets&itemid=b410c42c-51d1-460e-b1d9-d105d93c9679&filename=littelfuse-varistor-ultramov25s-datasheet
-varistor
-0
-2
-2
-Varistor
-Varistor_Panasonic_VF
-Panasonic VF series varistor, 6x8mm body, 3.2mm height, https://mediap.industry.panasonic.eu/assets/imported/industrial.panasonic.com/cdbs/www-data/pdf/AWA0000/AWA0000C4.pdf
-Varistor VF
-0
-2
-2
+ff-dtype-TI-SN74HC273NE4
+DIP794W53P254L2540H508Q20N
+N (R-PDIP-T20)
+Integrated Circuit
+0
+20
+20
+footprints
+APS6404L-3SQR-SN_APY
+
+APS6404L-3SQR-SN 
+0
+8
+8
+footprints
+APS6404L-3SQR-SN_APY-L
+
+APS6404L-3SQR-SN 
+0
+8
+8
+footprints
+APS6404L-3SQR-SN_APY-M
+
+APS6404L-3SQR-SN 
+0
+8
+8
 footprints
 SOIC-16_3.9x9.9mm_P1.27mm
 SOIC, 16 Pin (JEDEC MS-012, variation AC, https://www.jedec.org/document_search?search_api_views_fulltext=MS-012, https://www.analog.com/media/en/package-pcb-resources/package/pkg_pdf/soic_narrow-r/r_16.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py
@@ -106371,3 +105692,73 @@ SOIC SO 16-pin-NSOP R-16 R-16-S D0016A M2B SO16 SOT109-1 751B SOIC_N narrow
 0
 16
 16
+footprints
+SOIC_128JVSIM_WIN
+
+W25Q128JVSIM 
+0
+8
+8
+footprints
+SOIC_128JVSIM_WIN-L
+
+W25Q128JVSIM 
+0
+8
+8
+footprints
+SOIC_128JVSIM_WIN-M
+
+W25Q128JVSIM 
+0
+8
+8
+footprints
+SOP50P326X110-14N
+DYY0014A
+Integrated Circuit
+0
+14
+14
+footprints
+TSSOP16_5X4P5_ONS
+
+74ACT139MTCX 
+0
+16
+16
+footprints
+TSSOP16_5X4P5_ONS-L
+
+74ACT139MTCX 
+0
+16
+16
+footprints
+TSSOP16_5X4P5_ONS-M
+
+74ACT139MTCX 
+0
+16
+16
+pmod-conn_6x2
+pmod_pin_array_6x2
+QMOD Pin Header 2 x 6 pins
+CONN
+0
+12
+12
+pmod-conn_6x2
+pmod_pin_array_6x2_hs
+QMOD Pin Header 2 x 6 pins
+CONN
+0
+12
+12
+pmod-conn_6x2
+pmod_pin_array_6x2_xadc
+QMOD Pin Header 2 x 6 pins
+CONN
+0
+12
+12

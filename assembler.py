@@ -162,10 +162,12 @@ instruction_table = {
 
 assembly_file = ""
 out_path = ""
+debug = False
 if len(sys.argv) > 1:
     assembly_file = sys.argv[1]
     out_path = sys.argv[2]
-
+    if(len(sys.argv) > 3):
+        debug = True
 
 
 #XORI GP0, #1
@@ -227,7 +229,7 @@ with open(assembly_file, "r") as af:
                     right_justified_error = " " * operand_start + "^Register by that name does not exist."
                     errors.append( line + "\n" +  right_justified_error)
                     continue
-            if len(operand_1) > 0 and opcode.operand_1.operand_type == OperandType.IntegerImmediate20 or opcode.operand_1.operand_type == OperandType.IntegerImmediate16:
+            if len(operand_1) > 0 and opcode.operand_1.operand_type == OperandType.IntegerImmediate20 or opcode.operand_1.operand_type == OperandType.IntegerImmediate16 or opcode.operand_2.operand_type == OperandType.IntegerImmediate15:
                 if not can_decode_to_int(operand_1.strip("#")):
                     operand_start = line.find(operand_1)
                     right_justified_error = " " * operand_start + "^Immediate not decodable to integer."
@@ -246,7 +248,7 @@ with open(assembly_file, "r") as af:
                     right_justified_error = " " * operand_start + "^Register by that name does not exist."
                     errors.append( line + "\n" +  right_justified_error)
                     continue
-            if len(operand_2) > 0 and opcode.operand_2.operand_type == OperandType.IntegerImmediate20 or opcode.operand_2.operand_type == OperandType.IntegerImmediate16:
+            if len(operand_2) > 0 and opcode.operand_2.operand_type == OperandType.IntegerImmediate20 or opcode.operand_2.operand_type == OperandType.IntegerImmediate16 or opcode.operand_2.operand_type == OperandType.IntegerImmediate15:
                 if not can_decode_to_int(operand_2.strip("#")):
                     operand_start = line.find(operand_2)
                     right_justified_error = " " * operand_start + "^Immediate not decodable to integer."
@@ -306,7 +308,7 @@ with open(assembly_file, "r") as af:
                     right_justified_error = " " * operand_start + "^Register by that name does not exist."
                     errors.append( line + "\n" +  right_justified_error)
                     continue
-            if len(operand_4) > 0 and opcode.operand_4.operand_type == OperandType.IntegerImmediate20 or opcode.operand_4.operand_type == OperandType.IntegerImmediate16:
+            if len(operand_4) > 0 and opcode.operand_4.operand_type == OperandType.IntegerImmediate20 or opcode.operand_4.operand_type == OperandType.IntegerImmediate16 or opcode.operand_2.operand_type == OperandType.IntegerImmediate15:
                 if not can_decode_to_int(operand_4.strip("#")):
                     operand_start = line.find(operand_4)
                     right_justified_error = " " * operand_start + "^Immediate not decodable to integer."
@@ -335,7 +337,7 @@ for decode_middle in instruction_opcode_decoded:
     operand_2 = None
     operand_3 = None
     operand_4 = None
-    if decode_middle.opcode.operand_1 != None and decode_middle.opcode.operand_1 != Operands.RegSpacer:
+    if decode_middle.opcode.operand_1 != None and decode_middle.opcode.operand_1.operand_type != OperandType.RegSpacer:
         if decode_middle.opcode.operand_1.operand_type == OperandType.Register:
             operand_1 = Register[decode_middle.operand_1].value
         if decode_middle.opcode.operand_1.operand_type == OperandType.AddressImmediate or decode_middle.opcode.operand_1.operand_type == OperandType.IntegerImmediate20 or decode_middle.opcode.operand_1.operand_type == OperandType.IntegerImmediate16:
@@ -350,27 +352,46 @@ for decode_middle in instruction_opcode_decoded:
     if decode_middle.opcode.operand_3 != None:
         if decode_middle.opcode.operand_3.operand_type == OperandType.Register:
             operand_3 = Register[decode_middle.operand_3].value
-        if decode_middle.opcode.operand_3.operand_type == OperandType.AddressImmediate or decode_middle.opcode.operand_3.operand_type == OperandType.IntegerImmediate20 or decode_middle.opcode.operand_3.operand_type == OperandType.IntegerImmediate16:
+        if decode_middle.opcode.operand_3.operand_type == OperandType.AddressImmediate or decode_middle.opcode.operand_3.operand_type == OperandType.IntegerImmediate20 or decode_middle.opcode.operand_3.operand_type == OperandType.IntegerImmediate16 or decode_middle.opcode.operand_3.operand_type == OperandType.IntegerImmediate15:
             operand_3 = int(decode_middle.operand_3)
     # Operand 4
     if decode_middle.opcode.operand_4 != None:
         if decode_middle.opcode.operand_4.operand_type == OperandType.Register:
             operand_4 = Register[decode_middle.operand_4].value
-        if decode_middle.opcode.operand_4.operand_type == OperandType.AddressImmediate or decode_middle.opcode.operand_4.operand_type == OperandType.IntegerImmediate20 or decode_middle.opcode.operand_4.operand_type == OperandType.IntegerImmediate16:
+        if decode_middle.opcode.operand_4.operand_type == OperandType.AddressImmediate or decode_middle.opcode.operand_4.operand_type == OperandType.IntegerImmediate20 or decode_middle.opcode.operand_4.operand_type == OperandType.IntegerImmediate16 or decode_middle.opcode.operand_3.operand_type == OperandType.IntegerImmediate15:
             operand_4 = int(decode_middle.operand_4)
     
     instruction = decode_middle.opcode.machine_code
     offset = 7
+    if(debug):
+        print(f"Opcode: {decode_middle.opcode.machine_code}")
+        if(decode_middle.opcode.operand_1 != None):
+            print(f"Op1: {decode_middle.opcode.operand_1.operand_type.value}, {decode_middle.operand_1}")
+        if(decode_middle.opcode.operand_2 != None):
+            print(f"Op2: {decode_middle.opcode.operand_2.operand_type.value}, {decode_middle.operand_2}")
+        if(decode_middle.opcode.operand_3 != None):
+            print(f"Op3: {decode_middle.opcode.operand_3.operand_type.value}, {decode_middle.operand_3}")
+        if(decode_middle.opcode.operand_4 != None):
+            print(f"Op4: {decode_middle.opcode.operand_4.operand_type.value}, {decode_middle.operand_4}")
+
     if(decode_middle.opcode.operand_1 == Operands.RegSpacer):
         offset += Operands.RegSpacer.offset
     if(operand_1 != None):
         instruction, offset = pack_operand(instruction, operand_1, offset, decode_middle.opcode.operand_1.offset)
+        if(debug):
+            print(f"Op1: {bin(instruction)}")
     if(operand_2 != None):
         instruction, offset = pack_operand(instruction, operand_2, offset, decode_middle.opcode.operand_2.offset)
+        if(debug):
+            print(f"Op2: {bin(instruction)}")
     if(operand_3 != None):
         instruction, offset = pack_operand(instruction, operand_3, offset, decode_middle.opcode.operand_3.offset)
+        if(debug):
+            print(f"Op3: {bin(instruction)}")
     if(operand_4 != None):
         instruction, offset = pack_operand(instruction, operand_4, offset, decode_middle.opcode.operand_4.offset)
+        if(debug):
+            print(f"Op4: {bin(instruction)}")
     instructions.append(instruction)
 
 with open(out_path, "wb") as bf:

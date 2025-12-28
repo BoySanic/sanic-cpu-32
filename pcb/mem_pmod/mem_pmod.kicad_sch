@@ -3171,28 +3171,6 @@
 			)
 		)
 	)
-	(global_label "VCC"
-		(shape output)
-		(at 25.4 232.41 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "296d0603-bae7-4cba-9e11-505c544295dd")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 32.0138 232.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "PMOD_B1"
 		(shape input)
 		(at 24.13 118.11 180)
@@ -3426,50 +3404,6 @@
 		(uuid "3bc0194d-9161-4603-8355-5aba4476c19c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 174.9794 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "VGA_R_1"
-		(shape output)
-		(at 25.4 219.71 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3bc96760-ea4d-4465-9560-83daa3e6b377")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 36.2471 219.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "HSYNC"
-		(shape output)
-		(at 25.4 245.11 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3bd3a91c-dae1-41ac-84e8-3f4d5f72e41c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 34.6143 245.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3744,28 +3678,6 @@
 		)
 	)
 	(global_label "GND"
-		(shape output)
-		(at 25.4 229.87 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5d69091b-7ca6-4ee5-ad04-e4428ae737c3")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 32.2557 229.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "GND"
 		(shape input)
 		(at 300.99 33.02 180)
 		(fields_autoplaced yes)
@@ -3919,50 +3831,6 @@
 			)
 		)
 	)
-	(global_label "VGA_G_1"
-		(shape output)
-		(at 25.4 222.25 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "666905a2-8620-4f42-88e1-1db369a49b6e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 36.2471 222.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "VGA_B_0"
-		(shape output)
-		(at 25.4 242.57 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "681c78af-87e3-4d65-986f-c88715ef0f1a")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 36.2471 242.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "PMOD_A0"
 		(shape input)
 		(at 377.19 60.96 0)
@@ -4003,28 +3871,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "VCC"
-		(shape output)
-		(at 25.4 250.19 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "6f27949c-7523-4687-90ef-d5009fb09629")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 32.0138 250.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 				(hide yes)
 			)
 		)
@@ -4201,28 +4047,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "VGA_R_0"
-		(shape output)
-		(at 25.4 237.49 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "7fc36877-164e-42ff-9af5-9b44997f3c43")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 36.2471 237.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 				(hide yes)
 			)
 		)
@@ -5151,28 +4975,6 @@
 			)
 		)
 	)
-	(global_label "VSYNC"
-		(shape output)
-		(at 25.4 227.33 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c9eb54fd-329f-431d-bef9-4e5377c08d82")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 34.3724 227.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "PMOD_A0"
 		(shape input)
 		(at 377.19 86.36 0)
@@ -5393,28 +5195,6 @@
 			)
 		)
 	)
-	(global_label "GND"
-		(shape output)
-		(at 25.4 247.65 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "da9124d4-6c41-4c12-9331-09d0d933bcb1")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 32.2557 247.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "VGA_G_1"
 		(shape input)
 		(at 172.72 125.73 0)
@@ -5428,28 +5208,6 @@
 		(uuid "dbd454b6-3726-46a9-a785-11251cbb598b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 183.5671 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "VGA_B_1"
-		(shape output)
-		(at 25.4 224.79 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "df9d8826-956e-4793-9f18-0163cfbe6b44")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 36.2471 224.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5516,28 +5274,6 @@
 		(uuid "ec564182-6469-49a0-a2dc-07ef136426bc")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 40.9642 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "VGA_G_0"
-		(shape output)
-		(at 25.4 240.03 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "ed77bfc9-ac8d-4aa7-bbec-51b14fbc9c04")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 36.2471 240.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6090,106 +5826,6 @@
 			(project "mem_pmod"
 				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c"
 					(reference "RAM2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pmod:PMOD-Device-x2-Type-1A-GPIO")
-		(at 21.59 233.68 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "1f82ade1-572b-4a08-928b-2e60e40d52bd")
-		(property "Reference" "PMOD2"
-			(at 18.034 213.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PMOD-Device-x2-Type-1A-GPIO"
-			(at 12.446 251.714 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "pmod-conn_6x2:pmod_pin_array_6x2"
-			(at 10.16 251.714 90)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://docs.google.com/a/mithis.com/spreadsheets/d/1D-GboyrP57VVpejQzEm0P1WEORo1LAIt92hk1bZGEoo/edit#gid=0"
-			(at 17.5086 212.09 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "PMOD Device Type 1A (Expanded/Dual GPIO)"
-			(at 21.59 233.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "385f0204-cbc0-439e-8200-9366408c7a89")
-		)
-		(pin "4"
-			(uuid "056d0926-d6b5-46d4-a144-9786f4e4f429")
-		)
-		(pin "5"
-			(uuid "69720ac3-a1e0-46a3-81e8-400b9cb42b9e")
-		)
-		(pin "6"
-			(uuid "4fe0a92a-c3dd-49ae-819f-e555503b69ef")
-		)
-		(pin "7"
-			(uuid "b1a01fa4-de6f-411b-957f-cdb1bb67254d")
-		)
-		(pin "8"
-			(uuid "ded8794a-531b-4c37-9405-ef3592b69492")
-		)
-		(pin "9"
-			(uuid "e91a5e7a-1e6b-4eab-a84f-563131f96d78")
-		)
-		(pin "10"
-			(uuid "f1258f6d-731b-43b8-8d1a-fba16868af08")
-		)
-		(pin "11"
-			(uuid "44fb7813-e896-4ac7-9130-a637ba72a83c")
-		)
-		(pin "12"
-			(uuid "6b12a0b3-48a5-4ddc-98c1-7f026dc1ef96")
-		)
-		(pin "1"
-			(uuid "112566c6-415f-417d-8b53-e0cff011bd82")
-		)
-		(pin "2"
-			(uuid "f7655d3c-5b13-472f-8043-683f8b6fa4f5")
-		)
-		(instances
-			(project "mem_pmod"
-				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c"
-					(reference "PMOD2")
 					(unit 1)
 				)
 			)
@@ -7305,6 +6941,48 @@
 				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c"
 					(reference "VRAM1")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 240.665 153.035)
+		(size 160.655 88.9)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "4581bf89-4008-4a49-837e-a1cd5c83027e")
+		(property "Sheetname" "vga"
+			(at 240.665 152.3234 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "vga_submodule.kicad_sch"
+			(at 240.665 242.5196 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "mem_pmod"
+				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c"
+					(page "2")
 				)
 			)
 		)

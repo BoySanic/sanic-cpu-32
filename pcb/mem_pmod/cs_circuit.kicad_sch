@@ -1,0 +1,1441 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "1e08d9c5-e7b8-4cf6-819c-9b07cdaf404f")
+	(paper "A4")
+	(lib_symbols
+		(symbol "74LVC1G57FW4-7:NC7SZ86FHX"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 20.32 10.16 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Value" "NC7SZ86FHX"
+				(at 20.32 7.62 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Footprint" "MICROPAK2-6_1X1_ONS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "NC7SZ86FHX"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "NC7SZ86FHX"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MICROPAK2-6_1X1_ONS MICROPAK2-6_1X1_ONS-M MICROPAK2-6_1X1_ONS-L"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "NC7SZ86FHX_0_1"
+				(polyline
+					(pts
+						(xy 7.62 5.08) (xy 7.62 -10.16)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 -10.16) (xy 33.02 -10.16)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 33.02 5.08) (xy 7.62 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 33.02 -10.16) (xy 33.02 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at 0 0 0)
+					(length 7.62)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 0 -2.54 0)
+					(length 7.62)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 0 -5.08 0)
+					(length 7.62)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 40.64 0 180)
+					(length 7.62)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 40.64 -2.54 180)
+					(length 7.62)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 40.64 -5.08 180)
+					(length 7.62)
+					(name "Y"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "NC7SZ86FHX:NC7SZ86FHX"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 20.32 10.16 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Value" "NC7SZ86FHX"
+				(at 20.32 7.62 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Footprint" "MICROPAK2-6_1X1_ONS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "NC7SZ86FHX"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "NC7SZ86FHX"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MICROPAK2-6_1X1_ONS MICROPAK2-6_1X1_ONS-M MICROPAK2-6_1X1_ONS-L"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "NC7SZ86FHX_0_1"
+				(polyline
+					(pts
+						(xy 7.62 5.08) (xy 7.62 -10.16)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 -10.16) (xy 33.02 -10.16)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 33.02 5.08) (xy 7.62 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 33.02 -10.16) (xy 33.02 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at 0 0 0)
+					(length 7.62)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 0 -2.54 0)
+					(length 7.62)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 0 -5.08 0)
+					(length 7.62)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 40.64 0 180)
+					(length 7.62)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 40.64 -2.54 180)
+					(length 7.62)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 40.64 -5.08 180)
+					(length 7.62)
+					(name "Y"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "NL17SV32XV5T2G:NL17SV32XV5T2G"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 20.32 10.16 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Value" "NL17SV32XV5T2G"
+				(at 20.32 7.62 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Footprint" "SOT553-5_ONS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "NL17SV32XV5T2G"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "NL17SV32XV5T2G"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT553-5_ONS SOT553-5_ONS-M SOT553-5_ONS-L"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "NL17SV32XV5T2G_0_1"
+				(polyline
+					(pts
+						(xy 7.62 5.08) (xy 7.62 -10.16)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 -10.16) (xy 33.02 -10.16)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 33.02 5.08) (xy 7.62 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 33.02 -10.16) (xy 33.02 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "NL17SV32XV5T2G_1_1"
+				(pin unspecified line
+					(at 0 0 0)
+					(length 7.62)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 0 -2.54 0)
+					(length 7.62)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 0 -5.08 0)
+					(length 7.62)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 40.64 0 180)
+					(length 7.62)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 40.64 -2.54 180)
+					(length 7.62)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 40.64 -5.08 180)
+					(length 7.62)
+					(name "Y"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(global_label "XOR_Result"
+		(shape output)
+		(at 143.51 68.58 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4f71a780-abb6-45fc-bce5-eea3d47ae2b2")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 157.1994 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "XOR_Result"
+		(shape input)
+		(at 102.87 113.03 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a62c290d-47cd-430e-83f0-b094beb88d88")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 89.1806 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "XOR_Result"
+		(shape input)
+		(at 102.87 91.44 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e4785c57-6be4-438d-aa91-205fde899d27")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 89.1806 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(hierarchical_label "RAM_CS1"
+		(shape output)
+		(at 143.51 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0088fb2e-9188-4cc8-ae68-e44caeef7f3d")
+	)
+	(hierarchical_label "CS_A0"
+		(shape input)
+		(at 102.87 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0e982c1c-a1d4-449a-bde2-3ab82a8aa83b")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 102.87 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "10725b84-822a-4a5e-814f-f7a6be650fb2")
+	)
+	(hierarchical_label "RAM_CS0"
+		(shape output)
+		(at 143.51 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2c777eee-ef8b-4aab-b7f3-d1e8f0b4f37c")
+	)
+	(hierarchical_label "CS_A0"
+		(shape input)
+		(at 171.45 110.49 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "32a3d273-9b3f-4791-bb19-612e4cd730ef")
+	)
+	(hierarchical_label "VCC"
+		(shape input)
+		(at 143.51 110.49 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3b0d5018-6557-457c-a766-ad8ae09bb4b3")
+	)
+	(hierarchical_label "CS_A1"
+		(shape input)
+		(at 102.87 110.49 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4f9c17b0-ce3c-47aa-bb52-7b9fc87e45e0")
+	)
+	(hierarchical_label "CS_A0"
+		(shape input)
+		(at 102.87 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "57af0a20-bdbd-4b1e-8ec8-e87e39b465e0")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 102.87 115.57 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5891e1ad-e777-4636-95d8-3d27459c8864")
+	)
+	(hierarchical_label "VCC"
+		(shape input)
+		(at 212.09 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "64d4dcbd-08be-4be8-84af-91b5350334d7")
+	)
+	(hierarchical_label "CS_A1"
+		(shape input)
+		(at 171.45 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "75e07318-10d6-470a-8c60-a4459f1c5f3b")
+	)
+	(hierarchical_label "RAM_CS2"
+		(shape output)
+		(at 212.09 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "76cf7497-fe27-4531-8469-5477cf73270d")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 171.45 115.57 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7db9a3a2-3a21-4672-9d1f-137b0602d439")
+	)
+	(hierarchical_label "CS_A1"
+		(shape input)
+		(at 171.45 113.03 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8b4c34fa-7e1f-4e22-a142-f23bd2407b90")
+	)
+	(hierarchical_label "VCC"
+		(shape input)
+		(at 212.09 110.49 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "999989c7-6cb3-418e-893a-ee9bca3aaf8a")
+	)
+	(hierarchical_label "CS_A0"
+		(shape input)
+		(at 171.45 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a6238607-25d7-4d78-aa55-a48488fec2d5")
+	)
+	(hierarchical_label "RAM_CS3"
+		(shape output)
+		(at 212.09 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a87a0a37-4daa-44d9-bdba-1c3d745e48e5")
+	)
+	(hierarchical_label "VCC"
+		(shape input)
+		(at 143.51 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ad5a62aa-fbd9-4cdc-8863-47c99bf6d7e5")
+	)
+	(hierarchical_label "CS_A1"
+		(shape input)
+		(at 102.87 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b2f9f0b9-74de-45fd-932a-338985bee3a6")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 171.45 91.44 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c354907d-0dec-42fa-8f83-6b289e0507a8")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 102.87 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e3d7a427-cfdb-47e2-9e18-78753868f468")
+	)
+	(hierarchical_label "VCC"
+		(shape input)
+		(at 143.51 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "eb04223c-89d0-4997-867a-4c0088160bff")
+	)
+	(symbol
+		(lib_id "74LVC1G57FW4-7:NC7SZ86FHX")
+		(at 102.87 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "218def52-50ba-4653-8c47-29b9f3ef50e3")
+		(property "Reference" "A0_NAND1"
+			(at 123.19 78.74 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "NC7SZ86FHX"
+			(at 123.19 81.28 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" "MICROPAK2-6_1X1_ONS"
+			(at 102.87 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "NC7SZ86FHX"
+			(at 102.87 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 102.87 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "2aaf2307-b176-4c28-82fa-f49b1e2e995f")
+		)
+		(pin "1"
+			(uuid "e79ac87a-af20-42c6-b3bd-9d4abb378bc5")
+		)
+		(pin "4"
+			(uuid "c9c66647-d873-4d57-be98-cd130844b4f9")
+		)
+		(pin "6"
+			(uuid "27738f07-4753-4d17-afff-f76f5fc3dd83")
+		)
+		(pin "3"
+			(uuid "62d5afe9-ecb6-4375-946d-12ad7bef8279")
+		)
+		(pin "5"
+			(uuid "ec70a1a5-5910-4da0-8166-b1557f08bf96")
+		)
+		(instances
+			(project "mem_pmod"
+				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c/804b1b15-b3a4-42f5-bffd-461eba3cfa95"
+					(reference "A0_NAND1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74LVC1G57FW4-7:NC7SZ86FHX")
+		(at 171.45 86.36 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "27b5fc6a-d823-4edf-8523-c7dc3ef1e485")
+		(property "Reference" "A0_NAND2"
+			(at 191.77 76.2 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "NC7SZ86FHX"
+			(at 191.77 78.74 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" "MICROPAK2-6_1X1_ONS"
+			(at 171.45 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "NC7SZ86FHX"
+			(at 171.45 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 171.45 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "2a87928b-a797-41b5-bb08-9d9405630697")
+		)
+		(pin "1"
+			(uuid "95ca4452-f061-48bb-8183-2298a87f95bc")
+		)
+		(pin "4"
+			(uuid "cffaf4a0-4565-4348-ac3b-f184a1203ecb")
+		)
+		(pin "6"
+			(uuid "fb975f00-bb79-469e-a191-af82760206c7")
+		)
+		(pin "3"
+			(uuid "a113563e-939d-4315-922e-73861f9f205e")
+		)
+		(pin "5"
+			(uuid "0d336885-16a9-43dd-8ef3-8fa7c399de01")
+		)
+		(instances
+			(project "mem_pmod"
+				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c/804b1b15-b3a4-42f5-bffd-461eba3cfa95"
+					(reference "A0_NAND2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "NC7SZ86FHX:NC7SZ86FHX")
+		(at 102.87 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "43742564-99fd-4af6-acfd-c9a395649383")
+		(property "Reference" "XOR1"
+			(at 123.19 53.34 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "NC7SZ86FHX"
+			(at 123.19 55.88 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" "MICROPAK2-6_1X1_ONS"
+			(at 102.87 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "NC7SZ86FHX"
+			(at 102.87 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 102.87 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "80d5ed7d-2e65-4573-b0d1-424d9cd3ab9e")
+		)
+		(pin "6"
+			(uuid "ed6802ed-5c84-4b89-b983-20d114615660")
+		)
+		(pin "4"
+			(uuid "d47eaff4-1af6-425e-a266-331331baaad6")
+		)
+		(pin "2"
+			(uuid "a1e4f48b-e0c9-47ac-a732-4ded48db2fe3")
+		)
+		(pin "5"
+			(uuid "fb392faa-9f12-4271-a49f-c83415f23d2b")
+		)
+		(pin "1"
+			(uuid "ed58763a-4d92-4c32-96a8-c09ffb461fad")
+		)
+		(instances
+			(project "mem_pmod"
+				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c/804b1b15-b3a4-42f5-bffd-461eba3cfa95"
+					(reference "XOR1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74LVC1G57FW4-7:NC7SZ86FHX")
+		(at 102.87 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6caac409-c8ee-4d8c-a5a6-2f00352c1a0b")
+		(property "Reference" "A1_NAND1"
+			(at 123.19 100.33 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "NC7SZ86FHX"
+			(at 123.19 102.87 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" "MICROPAK2-6_1X1_ONS"
+			(at 102.87 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "NC7SZ86FHX"
+			(at 102.87 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 102.87 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "99f383c1-14e8-4e92-aa74-c941e066d217")
+		)
+		(pin "1"
+			(uuid "29fb11c6-5613-4007-ac81-82b9375ea080")
+		)
+		(pin "4"
+			(uuid "9f00411d-beb0-4398-a548-e511281cf50b")
+		)
+		(pin "6"
+			(uuid "dfe18c33-9744-4361-9a0e-e051d88c662d")
+		)
+		(pin "3"
+			(uuid "7c198524-fa6a-41bb-9bf7-1b9d9f060dc9")
+		)
+		(pin "5"
+			(uuid "6a101d7f-a402-4b6d-9fbf-3479c4ce2858")
+		)
+		(instances
+			(project "mem_pmod"
+				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c/804b1b15-b3a4-42f5-bffd-461eba3cfa95"
+					(reference "A1_NAND1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "NL17SV32XV5T2G:NL17SV32XV5T2G")
+		(at 171.45 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a6970399-9f03-4743-aac6-b55d9e12643a")
+		(property "Reference" "U2"
+			(at 191.77 100.33 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "NL17SV32XV5T2G"
+			(at 191.77 102.87 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" "SOT553-5_ONS"
+			(at 171.45 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "NL17SV32XV5T2G"
+			(at 171.45 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 171.45 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a7225720-6356-4c9a-893c-f51d77712ad5")
+		)
+		(pin "3"
+			(uuid "4e66caa7-2b57-4962-8517-231883e0341d")
+		)
+		(pin "5"
+			(uuid "6cbb5c0a-10b5-480c-bb57-1b34159ce2ad")
+		)
+		(pin "4"
+			(uuid "d2b58f1b-8702-4f72-acee-81bac891e511")
+		)
+		(pin "6"
+			(uuid "4860662e-6cb0-43c9-ad06-bd1654d18be0")
+		)
+		(pin "2"
+			(uuid "fe2c843a-7ec8-45d8-9761-b8982773862d")
+		)
+		(instances
+			(project "mem_pmod"
+				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c/804b1b15-b3a4-42f5-bffd-461eba3cfa95"
+					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+)

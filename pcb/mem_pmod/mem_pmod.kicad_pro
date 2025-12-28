@@ -659,6 +659,10 @@
     [
       "4581bf89-4008-4a49-837e-a1cd5c83027e",
       "vga"
+    ],
+    [
+      "804b1b15-b3a4-42f5-bffd-461eba3cfa95",
+      "CS_Circuit"
     ]
   ],
   "text_variables": {}

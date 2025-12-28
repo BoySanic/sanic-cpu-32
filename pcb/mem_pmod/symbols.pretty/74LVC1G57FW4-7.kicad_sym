@@ -2,7 +2,7 @@
 	(version 20241209)
 	(generator "kicad_symbol_editor")
 	(generator_version "9.0")
-	(symbol "NL17SV32XV5T2G"
+	(symbol "NC7SZ86FHX"
 		(pin_names
 			(offset 0.254)
 		)
@@ -17,7 +17,7 @@
 				)
 			)
 		)
-		(property "Value" "NL17SV32XV5T2G"
+		(property "Value" "NC7SZ86FHX"
 			(at 20.32 7.62 0)
 			(effects
 				(font
@@ -25,7 +25,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOT553-5_ONS"
+		(property "Footprint" "MICROPAK2-6_1X1_ONS"
 			(at 0 0 0)
 			(effects
 				(font
@@ -35,7 +35,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "NL17SV32XV5T2G"
+		(property "Datasheet" "NC7SZ86FHX"
 			(at 0 0 0)
 			(effects
 				(font
@@ -62,7 +62,7 @@
 				)
 			)
 		)
-		(property "ki_keywords" "NL17SV32XV5T2G"
+		(property "ki_keywords" "NC7SZ86FHX"
 			(at 0 0 0)
 			(effects
 				(font
@@ -71,7 +71,7 @@
 				(hide yes)
 			)
 		)
-		(property "ki_fp_filters" "SOT553-5_ONS SOT553-5_ONS-M SOT553-5_ONS-L"
+		(property "ki_fp_filters" "MICROPAK2-6_1X1_ONS MICROPAK2-6_1X1_ONS-M MICROPAK2-6_1X1_ONS-L"
 			(at 0 0 0)
 			(effects
 				(font
@@ -80,7 +80,7 @@
 				(hide yes)
 			)
 		)
-		(symbol "NL17SV32XV5T2G_0_1"
+		(symbol "NC7SZ86FHX_0_1"
 			(polyline
 				(pts
 					(xy 7.62 5.08) (xy 7.62 -10.16)
@@ -129,12 +129,10 @@
 					(type none)
 				)
 			)
-		)
-		(symbol "NL17SV32XV5T2G_1_1"
 			(pin unspecified line
 				(at 0 0 0)
 				(length 7.62)
-				(name "B"
+				(name "A"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -152,7 +150,7 @@
 			(pin unspecified line
 				(at 0 -2.54 0)
 				(length 7.62)
-				(name "A"
+				(name "B"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -167,7 +165,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin power_out line
 				(at 0 -5.08 0)
 				(length 7.62)
 				(name "GND"
@@ -185,7 +183,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin power_in line
 				(at 40.64 0 180)
 				(length 7.62)
 				(name "VCC"

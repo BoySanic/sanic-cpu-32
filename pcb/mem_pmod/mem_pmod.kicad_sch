@@ -413,145 +413,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:C"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "C"
-				(at 0.635 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "C"
-				(at 0.635 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0.9652 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Unpolarized capacitor"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "cap capacitor"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "C_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "C_0_1"
-				(polyline
-					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 2.794)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 2.794)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "SN74HC374NSR:SN74HC374NSR"
 			(pin_names
 				(offset 0.254)
@@ -2334,6 +2195,10 @@
 		(uuid "2704d2df-c5a5-4ce0-ad0b-f8c388dd318d")
 	)
 	(no_connect
+		(at 24.13 185.42)
+		(uuid "2b3c4f09-b3c3-4547-9ac6-acb0837704de")
+	)
+	(no_connect
 		(at 172.72 133.35)
 		(uuid "4a72c960-28f4-42d5-a7a5-244c6f180a32")
 	)
@@ -2354,6 +2219,10 @@
 		(uuid "6d463f85-b765-459b-8bff-0d215d091a39")
 	)
 	(no_connect
+		(at 24.13 182.88)
+		(uuid "7cdb7cd2-7d57-459c-accb-bf0dff7edcab")
+	)
+	(no_connect
 		(at 116.84 133.35)
 		(uuid "7d7ad579-727a-45c3-b6ef-abb63a92d7b4")
 	)
@@ -2364,10 +2233,6 @@
 	(no_connect
 		(at 172.72 125.73)
 		(uuid "91189fa0-7d68-4599-90dc-b10393abc06c")
-	)
-	(no_connect
-		(at 24.13 177.8)
-		(uuid "92579f06-33bd-43f4-8c0d-43ec3d9215bd")
 	)
 	(no_connect
 		(at 172.72 118.11)
@@ -2390,7 +2255,7 @@
 		)
 		(uuid "710ee3f2-4da6-4475-9e3e-07ad04a02af3")
 	)
-	(global_label "FLIP_1"
+	(global_label "FLIP_G"
 		(shape input)
 		(at 172.72 162.56 0)
 		(fields_autoplaced yes)
@@ -2412,30 +2277,8 @@
 			)
 		)
 	)
-	(global_label "VBB_CLK"
-		(shape input)
-		(at 53.34 215.9 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "051929b6-d5eb-4e0b-b059-238ca821fdf9")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 53.34 204.7505 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "CS_A0"
-		(shape input)
+		(shape output)
 		(at 24.13 69.85 0)
 		(fields_autoplaced yes)
 		(effects
@@ -2523,7 +2366,7 @@
 		)
 	)
 	(global_label "GND"
-		(shape output)
+		(shape input)
 		(at 85.09 185.42 0)
 		(fields_autoplaced yes)
 		(effects
@@ -2545,7 +2388,7 @@
 		)
 	)
 	(global_label "PRJ_Clock"
-		(shape input)
+		(shape output)
 		(at 24.13 67.31 0)
 		(fields_autoplaced yes)
 		(effects
@@ -2588,7 +2431,7 @@
 			)
 		)
 	)
-	(global_label "PMOD_B2"
+	(global_label "PMOD_B3"
 		(shape input)
 		(at 116.84 130.81 180)
 		(fields_autoplaced yes)
@@ -2720,8 +2563,8 @@
 			)
 		)
 	)
-	(global_label "PMOD_B1"
-		(shape output)
+	(global_label "PMOD_B2"
+		(shape input)
 		(at 116.84 162.56 180)
 		(fields_autoplaced yes)
 		(effects
@@ -2743,7 +2586,7 @@
 		)
 	)
 	(global_label "CS_V0"
-		(shape input)
+		(shape output)
 		(at 24.13 74.93 0)
 		(fields_autoplaced yes)
 		(effects
@@ -2853,7 +2696,7 @@
 		)
 	)
 	(global_label "GND"
-		(shape output)
+		(shape input)
 		(at 85.09 115.57 0)
 		(fields_autoplaced yes)
 		(effects
@@ -2874,29 +2717,7 @@
 			)
 		)
 	)
-	(global_label "PRJ_Clock"
-		(shape input)
-		(at 24.13 182.88 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "42872f63-b8ec-4bc9-b48e-88c8bd8f3e1d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 11.4687 182.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "FLIP_2"
+	(global_label "FLIP_B"
 		(shape input)
 		(at 172.72 170.18 0)
 		(fields_autoplaced yes)
@@ -2962,28 +2783,6 @@
 			)
 		)
 	)
-	(global_label "VBB_CLK"
-		(shape input)
-		(at 24.13 180.34 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "547b2da0-5053-4690-ad9d-b8e90d33dc3d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 12.9805 180.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "RAM_CS1"
 		(shape input)
 		(at 316.23 78.74 180)
@@ -2997,6 +2796,28 @@
 		(uuid "585a249c-e750-422e-a651-03dd86aa27dd")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 304.7782 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "CS_V0"
+		(shape input)
+		(at 24.13 177.8 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "58f70127-3b70-4821-860f-62e1bf8fb059")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 15.3996 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3051,7 +2872,7 @@
 		)
 	)
 	(global_label "VCC"
-		(shape output)
+		(shape input)
 		(at 24.13 123.19 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3072,8 +2893,8 @@
 			)
 		)
 	)
-	(global_label "FLIP_2"
-		(shape input)
+	(global_label "FLIP_B"
+		(shape output)
 		(at 116.84 128.27 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3084,7 +2905,7 @@
 		)
 		(uuid "5f4bb793-f2e1-4a3c-b530-e23bf43c7ca7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 107.6862 128.27 0)
+			(at 107.6257 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3161,7 +2982,7 @@
 		)
 	)
 	(global_label "VGA_B_0"
-		(shape input)
+		(shape output)
 		(at 116.84 167.64 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3178,28 +2999,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "VCC"
-		(shape output)
-		(at 53.34 198.12 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "67692b2f-d198-453c-95f3-17e30cace745")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 53.34 191.5062 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 				(hide yes)
 			)
 		)
@@ -3271,7 +3070,7 @@
 		)
 	)
 	(global_label "PRJ_Clock"
-		(shape output)
+		(shape input)
 		(at 85.09 120.65 0)
 		(fields_autoplaced yes)
 		(effects
@@ -3336,8 +3135,8 @@
 			)
 		)
 	)
-	(global_label "PMOD_B0"
-		(shape output)
+	(global_label "PMOD_B1"
+		(shape input)
 		(at 116.84 160.02 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3403,7 +3202,7 @@
 		)
 	)
 	(global_label "DIV_CLK_0"
-		(shape input)
+		(shape output)
 		(at 85.09 180.34 0)
 		(fields_autoplaced yes)
 		(effects
@@ -3512,7 +3311,7 @@
 			)
 		)
 	)
-	(global_label "PMOD_B0"
+	(global_label "PMOD_B1"
 		(shape input)
 		(at 116.84 120.65 180)
 		(fields_autoplaced yes)
@@ -3525,28 +3324,6 @@
 		(uuid "8faa7b0a-3642-45d9-9c8b-48e4c562a099")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 105.0858 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "VBB_CLK"
-		(shape output)
-		(at 24.13 185.42 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9192c889-3748-45b6-af88-8e9a61fb7ac4")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 12.9805 185.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3579,7 +3356,7 @@
 		)
 	)
 	(global_label "CS_A1"
-		(shape input)
+		(shape output)
 		(at 24.13 72.39 0)
 		(fields_autoplaced yes)
 		(effects
@@ -3689,7 +3466,7 @@
 		)
 	)
 	(global_label "VGA_B_1"
-		(shape input)
+		(shape output)
 		(at 172.72 167.64 0)
 		(fields_autoplaced yes)
 		(effects
@@ -3755,7 +3532,7 @@
 		)
 	)
 	(global_label "VGA_G_0"
-		(shape input)
+		(shape output)
 		(at 116.84 165.1 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3843,7 +3620,7 @@
 		)
 	)
 	(global_label "VCC"
-		(shape output)
+		(shape input)
 		(at 85.09 177.8 0)
 		(fields_autoplaced yes)
 		(effects
@@ -3886,8 +3663,8 @@
 			)
 		)
 	)
-	(global_label "FLIP_1"
-		(shape input)
+	(global_label "FLIP_G"
+		(shape output)
 		(at 116.84 125.73 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3975,7 +3752,7 @@
 		)
 	)
 	(global_label "VGA_R_1"
-		(shape input)
+		(shape output)
 		(at 172.72 157.48 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4040,8 +3817,8 @@
 			)
 		)
 	)
-	(global_label "PMOD_B2"
-		(shape output)
+	(global_label "PMOD_B3"
+		(shape input)
 		(at 116.84 170.18 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4085,7 +3862,7 @@
 		)
 	)
 	(global_label "DIV_CLK_1"
-		(shape input)
+		(shape output)
 		(at 85.09 182.88 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4106,7 +3883,7 @@
 			)
 		)
 	)
-	(global_label "PMOD_B1"
+	(global_label "PMOD_B2"
 		(shape input)
 		(at 116.84 123.19 180)
 		(fields_autoplaced yes)
@@ -4195,7 +3972,7 @@
 		)
 	)
 	(global_label "VGA_R_0"
-		(shape input)
+		(shape output)
 		(at 116.84 157.48 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4282,7 +4059,7 @@
 			)
 		)
 	)
-	(global_label "FLIP_0"
+	(global_label "FLIP_R"
 		(shape input)
 		(at 172.72 160.02 0)
 		(fields_autoplaced yes)
@@ -4304,8 +4081,8 @@
 			)
 		)
 	)
-	(global_label "FLIP_0"
-		(shape input)
+	(global_label "FLIP_R"
+		(shape output)
 		(at 116.84 118.11 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4348,8 +4125,30 @@
 			)
 		)
 	)
-	(global_label "HSYNC"
+	(global_label "PRJ_Clock"
 		(shape input)
+		(at 24.13 180.34 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d344ca5e-5921-4827-a6ad-1fdd2c31172b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 11.4687 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "HSYNC"
+		(shape output)
 		(at 24.13 82.55 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4371,7 +4170,7 @@
 		)
 	)
 	(global_label "VGA_G_1"
-		(shape input)
+		(shape output)
 		(at 172.72 165.1 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4503,7 +4302,7 @@
 		)
 	)
 	(global_label "CS_V0"
-		(shape output)
+		(shape input)
 		(at 24.13 115.57 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4525,7 +4324,7 @@
 		)
 	)
 	(global_label "VSYNC"
-		(shape input)
+		(shape output)
 		(at 24.13 80.01 0)
 		(fields_autoplaced yes)
 		(effects
@@ -5235,76 +5034,6 @@
 			(project ""
 				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c"
 					(reference "Flash1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 53.34 201.93 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "63455ec2-9610-403e-8105-da87e366ae4a")
-		(property "Reference" "C1"
-			(at 57.15 200.6599 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10nF"
-			(at 57.15 203.1999 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_01005_0402Metric"
-			(at 54.3052 205.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 53.34 201.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 53.34 201.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "828459e0-0353-4bfc-85cd-9cc5ade52b80")
-		)
-		(pin "1"
-			(uuid "53304df1-b1cd-43ef-b6d4-b3eee0bf3cb2")
-		)
-		(instances
-			(project ""
-				(path "/8545f811-7daa-4113-8e8d-885fb4bac67c"
-					(reference "C1")
 					(unit 1)
 				)
 			)

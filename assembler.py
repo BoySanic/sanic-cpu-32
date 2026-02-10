@@ -195,6 +195,8 @@ with open(assembly_file, "r") as af:
         line_count += 1
         split = line.split(" ")
         opcode_str = split[0]
+        if opcode_str[0] == ';':
+            continue # It's a comment
         if opcode_str not in instruction_table:
             right_justified_error = "Invalid opcode"
             
@@ -203,19 +205,18 @@ with open(assembly_file, "r") as af:
         arguments = line[len(opcode_str):].strip().split(",")
         if(opcode.operand_1 == Operands.RegSpacer):
                 operand_1 = ""
-                operand_2 = arguments[0].strip()
+                operand_2 = arguments[0].strip().split(';')[0]
         else:
-            operand_1 = arguments[0].strip()
+            operand_1 = arguments[0].strip().split(';')[0]
             operand_2 = ""
         operand_3 = ""
         operand_4 = ""
         if len(arguments) > 1:
-            operand_2 = arguments[1].strip()
+            operand_2 = arguments[1].strip().split(";")[0]
         if len(arguments) > 2: 
-            operand_3 = arguments[2].strip()
+            operand_3 = arguments[2].strip().split(";")[0]
         if len(arguments) > 3:
-            operand_4 = arguments[3].strip()
-
+            operand_4 = arguments[3].strip().split(";")[0]
         if opcode.operand_1 != None and opcode.operand_1 != Operands.RegSpacer:
             if opcode.operand_1.operand_type != OperandType.Register and opcode.operand_1.operand_type != OperandType.SpecialRegister and opcode.operand_1.operand_type != OperandType.Condition:
                 if operand_1[0] != operandtype_prefixes[opcode.operand_1.operand_type]:

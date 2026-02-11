@@ -14,12 +14,15 @@
       <a name="facing" val="west"/>
       <a name="type" val="output"/>
     </tool>
+    <tool name="Pull Resistor">
+      <a name="facing" val="east"/>
+    </tool>
     <tool name="Clock">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
     </tool>
     <tool name="Constant">
-      <a name="value" val="0x7"/>
+      <a name="value" val="0x0"/>
       <a name="width" val="3"/>
     </tool>
   </lib>
@@ -28,9 +31,8 @@
       <a name="size" val="20"/>
     </tool>
     <tool name="Buffer">
-      <a name="facing" val="south"/>
+      <a name="facing" val="north"/>
       <a name="out" val="Z1"/>
-      <a name="width" val="7"/>
     </tool>
     <tool name="AND Gate">
       <a name="facing" val="south"/>
@@ -47,6 +49,7 @@
   </lib>
   <lib desc="#Plexers" name="2">
     <tool name="Multiplexer">
+      <a name="facing" val="south"/>
       <a name="size" val="20"/>
       <a name="width" val="32"/>
     </tool>
@@ -234,6 +237,14 @@
       <a name="appear" val="right"/>
       <a name="facing" val="west"/>
     </comp>
+    <comp lib="0" loc="(3260,640)" name="Pull Resistor">
+      <a name="facing" val="east"/>
+    </comp>
+    <comp lib="0" loc="(3300,610)" name="Constant">
+      <a name="facing" val="south"/>
+      <a name="value" val="0x0"/>
+      <a name="width" val="24"/>
+    </comp>
     <comp lib="0" loc="(3300,700)" name="Splitter">
       <a name="appear" val="right"/>
       <a name="facing" val="south"/>
@@ -343,6 +354,14 @@
     <comp lib="1" loc="(2950,180)" name="NOT Gate">
       <a name="size" val="20"/>
     </comp>
+    <comp lib="1" loc="(3260,620)" name="Buffer">
+      <a name="facing" val="south"/>
+      <a name="out" val="Z1"/>
+    </comp>
+    <comp lib="1" loc="(3260,640)" name="Buffer">
+      <a name="facing" val="north"/>
+      <a name="out" val="Z1"/>
+    </comp>
     <comp lib="1" loc="(3310,920)" name="OR Gate">
       <a name="facing" val="south"/>
       <a name="size" val="30"/>
@@ -364,6 +383,11 @@
     </comp>
     <comp lib="2" loc="(3310,710)" name="Multiplexer">
       <a name="facing" val="west"/>
+      <a name="size" val="20"/>
+      <a name="width" val="24"/>
+    </comp>
+    <comp lib="2" loc="(3330,650)" name="Multiplexer">
+      <a name="facing" val="south"/>
       <a name="size" val="20"/>
       <a name="width" val="24"/>
     </comp>
@@ -607,12 +631,17 @@
     <wire from="(3190,1030)" to="(3190,1080)"/>
     <wire from="(3190,1190)" to="(3210,1190)"/>
     <wire from="(3210,1120)" to="(3210,1190)"/>
-    <wire from="(3220,530)" to="(3220,600)"/>
-    <wire from="(3220,600)" to="(3330,600)"/>
+    <wire from="(3220,530)" to="(3220,560)"/>
+    <wire from="(3220,560)" to="(3340,560)"/>
     <wire from="(3240,530)" to="(3240,550)"/>
     <wire from="(3240,550)" to="(3500,550)"/>
     <wire from="(3250,110)" to="(3250,260)"/>
     <wire from="(3250,990)" to="(3260,990)"/>
+    <wire from="(3260,530)" to="(3260,600)"/>
+    <wire from="(3260,620)" to="(3260,640)"/>
+    <wire from="(3260,640)" to="(3310,640)"/>
+    <wire from="(3260,660)" to="(3260,670)"/>
+    <wire from="(3260,670)" to="(3320,670)"/>
     <wire from="(3260,890)" to="(3260,990)"/>
     <wire from="(3270,880)" to="(3270,930)"/>
     <wire from="(3270,930)" to="(3310,930)"/>
@@ -620,6 +649,8 @@
     <wire from="(3280,950)" to="(3680,950)"/>
     <wire from="(3290,1020)" to="(3680,1020)"/>
     <wire from="(3290,820)" to="(3290,1020)"/>
+    <wire from="(3300,610)" to="(3300,620)"/>
+    <wire from="(3300,620)" to="(3320,620)"/>
     <wire from="(3300,700)" to="(3310,700)"/>
     <wire from="(3300,740)" to="(3300,780)"/>
     <wire from="(3300,820)" to="(3300,890)"/>
@@ -633,15 +664,18 @@
     <wire from="(3320,330)" to="(3540,330)"/>
     <wire from="(3320,420)" to="(3360,420)"/>
     <wire from="(3320,440)" to="(3740,440)"/>
+    <wire from="(3320,620)" to="(3320,630)"/>
+    <wire from="(3320,670)" to="(3320,730)"/>
     <wire from="(3320,730)" to="(3320,790)"/>
     <wire from="(3320,790)" to="(3540,790)"/>
     <wire from="(3320,880)" to="(3320,890)"/>
     <wire from="(3330,1280)" to="(3680,1280)"/>
     <wire from="(3330,250)" to="(3330,300)"/>
     <wire from="(3330,300)" to="(3350,300)"/>
-    <wire from="(3330,600)" to="(3330,700)"/>
+    <wire from="(3330,650)" to="(3330,700)"/>
     <wire from="(3330,720)" to="(3350,720)"/>
     <wire from="(3330,930)" to="(3330,1280)"/>
+    <wire from="(3340,560)" to="(3340,630)"/>
     <wire from="(3340,710)" to="(3340,740)"/>
     <wire from="(3340,710)" to="(3360,710)"/>
     <wire from="(3340,740)" to="(3340,770)"/>
@@ -3450,13 +3484,8 @@
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="61" y="307">ALU</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="88" y="305">op_1</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="115" y="306">op_2</text>
-      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="204" y="282">mde</text>
-      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="153" y="282">mae</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="178" y="282">mao</text>
-      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="234" y="299">mdre</text>
-      <polyline fill="none" points="155,288 167,313" stroke="#000000"/>
       <polyline fill="none" points="179,313 177,289" stroke="#000000"/>
-      <polyline fill="none" points="189,313 202,290" stroke="#000000"/>
       <polyline fill="none" points="221,313 229,305" stroke="#000000"/>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="218" y="291">mdo</text>
       <polyline fill="none" points="202,314 216,298" stroke="#000000"/>
@@ -3476,6 +3505,7 @@
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="142" y="60">ir_out</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="248" y="229">mem_we</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="256" y="288">mem_r</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="232" y="299">mae</text>
       <circ-anchor facing="south" x="90" y="320"/>
       <circ-port dir="in" pin="1150,970" x="50" y="60"/>
       <circ-port dir="in" pin="1160,910" x="70" y="50"/>
@@ -3494,14 +3524,8 @@
       <circ-port dir="out" pin="1720,1790" x="50" y="210"/>
       <circ-port dir="out" pin="1720,1820" x="50" y="250"/>
       <circ-port dir="out" pin="1790,1010" x="280" y="230"/>
-      <circ-port dir="out" pin="1790,1090" x="280" y="270"/>
-      <circ-port dir="out" pin="1790,1130" x="50" y="140"/>
       <circ-port dir="out" pin="1790,1170" x="50" y="180"/>
-      <circ-port dir="out" pin="1790,1190" x="50" y="220"/>
-      <circ-port dir="out" pin="1790,1210" x="50" y="240"/>
       <circ-port dir="out" pin="1790,1230" x="60" y="320"/>
-      <circ-port dir="out" pin="1790,1250" x="170" y="320"/>
-      <circ-port dir="out" pin="1790,1270" x="190" y="320"/>
       <circ-port dir="out" pin="1790,1290" x="220" y="320"/>
       <circ-port dir="out" pin="1790,1510" x="110" y="320"/>
       <circ-port dir="out" pin="1790,1670" x="200" y="320"/>
@@ -3961,34 +3985,10 @@
       <a name="label" val="MEM_WRITE_ENABLE"/>
       <a name="type" val="output"/>
     </comp>
-    <comp lib="0" loc="(1790,1090)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="MAR_CLEAR_ENABLE"/>
-      <a name="type" val="output"/>
-    </comp>
-    <comp lib="0" loc="(1790,1130)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="REG_CLEAR_ENABLE"/>
-      <a name="type" val="output"/>
-    </comp>
     <comp lib="0" loc="(1790,1170)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="REG_WRITE_ENABLE_OUT"/>
-      <a name="type" val="output"/>
-    </comp>
-    <comp lib="0" loc="(1790,1190)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="REG_READ_A_ENABLE_OUT"/>
-      <a name="type" val="output"/>
-    </comp>
-    <comp lib="0" loc="(1790,1210)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="REG_READ_B_ENABLE_OUT"/>
       <a name="type" val="output"/>
     </comp>
     <comp lib="0" loc="(1790,1230)" name="Pin">
@@ -3997,22 +3997,10 @@
       <a name="label" val="ALU_ENABLE"/>
       <a name="type" val="output"/>
     </comp>
-    <comp lib="0" loc="(1790,1250)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="MAR_WRITE_ENABLE"/>
-      <a name="type" val="output"/>
-    </comp>
-    <comp lib="0" loc="(1790,1270)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="MDR_WRITE_ENABLE"/>
-      <a name="type" val="output"/>
-    </comp>
     <comp lib="0" loc="(1790,1290)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
-      <a name="label" val="MDR_READ_ENABLE"/>
+      <a name="label" val="MEM_ADDR_EMIT"/>
       <a name="type" val="output"/>
     </comp>
     <comp lib="0" loc="(1790,1510)" name="Pin">
@@ -4101,7 +4089,8 @@
     <comp lib="1" loc="(1470,750)" name="PLA">
       <a name="in_width" val="9"/>
       <a name="out_width" val="25"/>
-      <a name="table">001000000 0001110000000000000000000
+      <a name="table">000000001 0000000100000000000000000
+001000000 0001110000000000000000000
 011000000 0000001100010000000000000
 001000001 0001110000000000000000000
 011000001 0000001100010000000000000
@@ -4175,9 +4164,9 @@
 000111010 0000010000000010010010001
 010111010 0000000100000000000000000
 001100000 0000100000000000000000000
-011100000 0000001000001000000000000
+011100000 1000001000001000000000000
 101100000 0000000100000000000000000
-001100001 0110110000000000001000000
+001100001 0000110000000000001000000
 011100001 0000000100000000000000000
 001100010 0000000010000000000000000
 011100010 0000001100000000100000000
@@ -4615,15 +4604,11 @@
     <wire from="(1610,1290)" to="(1790,1290)"/>
     <wire from="(1610,580)" to="(1610,620)"/>
     <wire from="(1610,760)" to="(1610,1290)"/>
-    <wire from="(1620,1270)" to="(1790,1270)"/>
     <wire from="(1620,1560)" to="(1620,2100)"/>
     <wire from="(1620,1560)" to="(2010,1560)"/>
     <wire from="(1620,2100)" to="(1730,2100)"/>
     <wire from="(1620,410)" to="(1620,550)"/>
     <wire from="(1620,410)" to="(2450,410)"/>
-    <wire from="(1620,760)" to="(1620,1270)"/>
-    <wire from="(1630,1250)" to="(1790,1250)"/>
-    <wire from="(1630,760)" to="(1630,1250)"/>
     <wire from="(1640,1230)" to="(1790,1230)"/>
     <wire from="(1640,2280)" to="(1660,2280)"/>
     <wire from="(1640,2290)" to="(1660,2290)"/>
@@ -4644,7 +4629,6 @@
     <wire from="(1650,1210)" to="(1690,1210)"/>
     <wire from="(1650,2620)" to="(1650,2650)"/>
     <wire from="(1650,760)" to="(1650,1210)"/>
-    <wire from="(1660,1190)" to="(1790,1190)"/>
     <wire from="(1660,140)" to="(1660,550)"/>
     <wire from="(1660,140)" to="(1690,140)"/>
     <wire from="(1660,2420)" to="(1660,2430)"/>
@@ -4657,7 +4641,6 @@
     <wire from="(1660,2490)" to="(1660,2500)"/>
     <wire from="(1660,2500)" to="(1660,2510)"/>
     <wire from="(1660,2620)" to="(1660,2650)"/>
-    <wire from="(1660,760)" to="(1660,1190)"/>
     <wire from="(1670,1170)" to="(1790,1170)"/>
     <wire from="(1670,2620)" to="(1670,2650)"/>
     <wire from="(1670,2680)" to="(1680,2680)"/>
@@ -4693,13 +4676,10 @@
     <wire from="(1680,400)" to="(1680,550)"/>
     <wire from="(1680,400)" to="(2450,400)"/>
     <wire from="(1680,760)" to="(1680,1150)"/>
-    <wire from="(1690,1130)" to="(1790,1130)"/>
     <wire from="(1690,1210)" to="(1690,1490)"/>
-    <wire from="(1690,1210)" to="(1790,1210)"/>
     <wire from="(1690,1850)" to="(1690,1870)"/>
     <wire from="(1690,1850)" to="(2100,1850)"/>
     <wire from="(1690,2620)" to="(1690,2650)"/>
-    <wire from="(1690,760)" to="(1690,1130)"/>
     <wire from="(1700,1550)" to="(1700,1670)"/>
     <wire from="(1700,1670)" to="(1790,1670)"/>
     <wire from="(1700,170)" to="(1700,210)"/>
@@ -4710,7 +4690,6 @@
     <wire from="(1700,2620)" to="(1700,2650)"/>
     <wire from="(1700,2800)" to="(1990,2800)"/>
     <wire from="(1700,760)" to="(1700,1050)"/>
-    <wire from="(1710,1090)" to="(1790,1090)"/>
     <wire from="(1710,130)" to="(1710,140)"/>
     <wire from="(1710,130)" to="(1780,130)"/>
     <wire from="(1710,1340)" to="(1710,1420)"/>
@@ -4720,7 +4699,6 @@
     <wire from="(1710,2400)" to="(1720,2400)"/>
     <wire from="(1710,2550)" to="(1990,2550)"/>
     <wire from="(1710,2620)" to="(1710,2650)"/>
-    <wire from="(1710,760)" to="(1710,1090)"/>
     <wire from="(1710,90)" to="(1710,110)"/>
     <wire from="(1720,1070)" to="(1800,1070)"/>
     <wire from="(1720,2620)" to="(1720,2650)"/>
@@ -6647,10 +6625,7 @@
       <a name="addrWidth" val="22"/>
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 22 32
-40062 1050 480e3 e1 450e3 e1 4c0e3 e1
-4c0e3 e1 4f0e3 e1 2c0e3 e1 200e3 e1
-570e3 e1 4f0e3 e1 520e3 e1 4c0e3 e1
-440e3 e1 210e3 e1
+40062 1050 21e5 3031 20160 161 21e6 fffc030
 </a>
       <a name="dataWidth" val="32"/>
     </comp>

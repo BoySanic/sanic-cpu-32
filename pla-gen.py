@@ -87,15 +87,15 @@ class MicroOp(Enum):
     #
     MAR_CLEAR_ENABLE = 0b0000000000100000000000000 # Repurpose, not used
     CMP_SUB_ALU      = 0b0000000001000000000000000
-    REG_CLEAR_ENABLE = 0b0000000010000000000000000
+    REG_CLEAR_ENABLE = 0b0000000010000000000000000 # Not currently used? Is this better than setting the reg to zero?
     NEXT_INSTRUCTION = 0b0000000100000000000000000
     REG_WRITE_ENABLE = 0b0000001000000000000000000
-    REG_READ_A       = 0b0000010000000000000000000
-    REG_READ_B       = 0b0000100000000000000000000
+    REG_READ_A       = 0b0000010000000000000000000 # Repurpose, not used
+    REG_READ_B       = 0b0000100000000000000000000 # Only used in control unit 
     ALU_ENABLE       = 0b0001000000000000000000000
     MAR_WRITE_ENABLE = 0b0010000000000000000000000 # Repurpose, not used
     MDR_WRITE_ENABLE = 0b0100000000000000000000000 # Repupose, not used
-    MDR_READ_ENABLE  = 0b1000000000000000000000000 # Repurpose, not used
+    MEM_ADDR_EMIT    = 0b1000000000000000000000000 # Used for stores/loads to prevent emitting the memory address when not needed, improves peripheral compatibility
 
 class Instruction:
     shorthand = OpCode.ADD
@@ -119,21 +119,21 @@ class Instruction:
 
 instructions = [
     Instruction(OpCode.NOP,     MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.ADD,     [MicroOp.REG_READ_A, MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.SUB,     [MicroOp.REG_READ_A, MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.MUL,     [MicroOp.REG_READ_A, MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.DIV,     [MicroOp.REG_READ_A, MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.AND,     [MicroOp.REG_READ_A, MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.OR,      [MicroOp.REG_READ_A, MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.XOR,     [MicroOp.REG_READ_A, MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.ADDI,    [MicroOp.REG_READ_A, MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.SUBI,    [MicroOp.REG_READ_A, MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.MULI,    [MicroOp.REG_READ_A, MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.DIVI,    [MicroOp.REG_READ_A, MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.ANDI,    [MicroOp.REG_READ_A, MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.ORI,     [MicroOp.REG_READ_A, MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.XORI,    [MicroOp.REG_READ_A, MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.CMP,     [MicroOp.REG_READ_A, MicroOp.REG_READ_B, MicroOp.CMP_SUB_ALU, MicroOp.ALU_ENABLE, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.ADD,     [MicroOp.REG_READ_A,      MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.SUB,     [MicroOp.REG_READ_A,      MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.MUL,     [MicroOp.REG_READ_A,      MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.DIV,     [MicroOp.REG_READ_A,      MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.AND,     [MicroOp.REG_READ_A,      MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.OR,      [MicroOp.REG_READ_A,      MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.XOR,     [MicroOp.REG_READ_A,      MicroOp.REG_READ_B, MicroOp.ALU_ENABLE],                                   [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.ADDI,    [MicroOp.REG_READ_A,      MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.SUBI,    [MicroOp.REG_READ_A,      MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.MULI,    [MicroOp.REG_READ_A,      MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.DIVI,    [MicroOp.REG_READ_A,      MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.ANDI,    [MicroOp.REG_READ_A,      MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.ORI,     [MicroOp.REG_READ_A,      MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.XORI,    [MicroOp.REG_READ_A,      MicroOp.ALU_ENABLE],                                                       [MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.CMP,     [MicroOp.REG_READ_A,      MicroOp.REG_READ_B, MicroOp.CMP_SUB_ALU, MicroOp.ALU_ENABLE, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.BR,      [MicroOp.PC_WRITE_ENABLE, MicroOp.REG_READ_A, MicroOp.CONDITION_ALWAYS],  MicroOp.NEXT_INSTRUCTION),
     Instruction(OpCode.BEQ,     [MicroOp.PC_WRITE_ENABLE, MicroOp.REG_READ_A, MicroOp.CONDITION_EQ], MicroOp.NEXT_INSTRUCTION),
     Instruction(OpCode.BNE,     [MicroOp.PC_WRITE_ENABLE, MicroOp.REG_READ_A, MicroOp.CONDITION_NE], MicroOp.NEXT_INSTRUCTION),
@@ -158,12 +158,12 @@ instructions = [
     Instruction(OpCode.JGEU,    [MicroOp.PC_WRITE_ENABLE, MicroOp.REG_READ_A, MicroOp.CONDITION_GEU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
     Instruction(OpCode.JGTU,    [MicroOp.PC_WRITE_ENABLE, MicroOp.REG_READ_A, MicroOp.CONDITION_GTU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
     
-    Instruction(OpCode.LD,      [MicroOp.REG_READ_B], [MicroOp.MEM_TO_A, MicroOp.REG_WRITE_ENABLE],  MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.ST,      [MicroOp.REG_READ_A, MicroOp.REG_READ_B, MicroOp.MAR_WRITE_ENABLE, MicroOp.MDR_WRITE_ENABLE, MicroOp.MEM_WRITE_ENABLE],                                             MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.LUI,     MicroOp.REG_CLEAR_ENABLE, [MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.LLI,     MicroOp.REG_CLEAR_ENABLE, [MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_USE_LOWER16, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.NOT,     [MicroOp.REG_READ_A, MicroOp.INVERT_REG_A, MicroOp.REG_WRITE_ENABLE, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.MOV,     [MicroOp.REG_READ_B, MicroOp.REG_WRITE_ENABLE], MicroOp.NEXT_INSTRUCTION)
+    Instruction(OpCode.LD,      [MicroOp.REG_READ_B],    [MicroOp.MEM_TO_A, MicroOp.MEM_ADDR_EMIT, MicroOp.REG_WRITE_ENABLE],  MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.ST,      [MicroOp.REG_READ_A,      MicroOp.REG_READ_B, MicroOp.MEM_ADDR_EMIT, MicroOp.MEM_WRITE_ENABLE],  MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.LUI,     MicroOp.REG_CLEAR_ENABLE,[MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.LLI,     MicroOp.REG_CLEAR_ENABLE,[MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_USE_LOWER16, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.NOT,     [MicroOp.REG_READ_A,      MicroOp.INVERT_REG_A, MicroOp.REG_WRITE_ENABLE, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.MOV,     [MicroOp.REG_READ_B,      MicroOp.REG_WRITE_ENABLE], MicroOp.NEXT_INSTRUCTION)
 ]
 
 opcode_pad_width = len(MicroOp)-8

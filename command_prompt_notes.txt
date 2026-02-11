@@ -1,0 +1,61 @@
+Command Prompt Concept
+
+
+
+Take in a command word -> Do something with it depending on its value
+
+
+ls -> two characters -> ASCII chars are 1 byte each. I can store 4 bytes in a register
+
+Up to 4 chars per command is the simplest before I have to start using more registers and/or reading from memory
+
+ls, cp, mv, etc.
+
+
+Prompt loop:
+
+Read character -> If not enter key, record character in command register
+Read character -> If 0, we're still waiting for the next character, so try again. If not enter key, record character in command register shifted up +8 bits
+Read character -> If value is `0` we're still waiting for next character, so try again. If not enter key, record character in command register shifted up +16 bits
+Read character -> If value is `0` we're still waiting for next character, so try again.If not enter key, record character in command register shifted up +24 bits
+Read character -> If enter key, process command word. If not enter key, idk lol push current command register to RAM and begin new chunk.
+
+We'll need some register to track how many words our command contains, so we know to grab those words from RAM as they're needed.
+
+I guess we'll need for it to recognize words in a binary tree kind of way to know which direction to go?
+
+
+
+command: ls -> 
+  1st byte    0th byte  
+  73          6C
+
+  29548 = ls
+
+  So if reg is 29548, run whatever ls is gonna do.
+
+
+Print:
+
+
+Directory contents /
+
+/dev
+
+
+conceptually we need it to store the contents of that directory lol but maybe just have it print something simple first.
+
+Type "hi" and it types "hi!"
+
+hi -> 26984
+
+
+So we're basically building a dictionary.
+
+Given a value, get a different value.
+
+Command tree?
+
+Store in memory ->
+
+

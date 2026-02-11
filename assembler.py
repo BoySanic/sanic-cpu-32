@@ -18,6 +18,7 @@ class OperandType(Enum):
     SpecialRegister = 6
     One = 7
     Zero = 8
+    Label = 9
 
 operandtype_prefixes = {
     OperandType.Register: "",
@@ -25,7 +26,8 @@ operandtype_prefixes = {
     OperandType.IntegerImmediate16: "#",
     OperandType.IntegerImmediate15: "#",
     OperandType.AddressImmediate: "$",
-    OperandType.SpecialRegister: ""
+    OperandType.SpecialRegister: "",
+    OperandType.Label: "%"
 }
 
 class Operand:
@@ -188,7 +190,14 @@ def pack_operand(instruction, operand, offset, bit_width):
 # If any are found that don't match an instruction, error with the line # and reason like a compiler.
 instructions =  []
 instruction_opcode_decoded = []
+labels = {}
 with open(assembly_file, "r") as af:
+    line_count = 0
+    # Gather labels first
+    for line in af:
+       if(line[len(line) - 1] == ':'):
+            labels[line.strip(':')] = line_count+1
+       line_count += 1 
     errors = []
     line_count = 0
     for line in af:
@@ -197,9 +206,11 @@ with open(assembly_file, "r") as af:
         opcode_str = split[0]
         if opcode_str[0] == ';':
             continue # It's a comment
+        if opcode_str[len(opcode_str)-1] == ':':
+            # Skip labels, already gathered
+            continue
         if opcode_str not in instruction_table:
             right_justified_error = "Invalid opcode"
-            
             errors.append( line + "\n^" + right_justified_error)
         opcode = instruction_table[opcode_str]
         arguments = line[len(opcode_str):].strip().split(",")
@@ -251,10 +262,16 @@ with open(assembly_file, "r") as af:
                     continue
             if len(operand_2) > 0 and opcode.operand_2.operand_type == OperandType.IntegerImmediate20 or opcode.operand_2.operand_type == OperandType.IntegerImmediate16 or opcode.operand_2.operand_type == OperandType.IntegerImmediate15:
                 if not can_decode_to_int(operand_2.strip("#")):
-                    operand_start = line.find(operand_2)
-                    right_justified_error = " " * operand_start + "^Immediate not decodable to integer."
-                    errors.append( line + "\n" +  right_justified_error)
-                    continue
+                    if operand_2[0] == ':':
+                        # Check for Label
+                        if operand_2.strip(':') in labels:
+                            # Replace label with instruction number to allow the jump to work.
+                            operand_2 = labels[operand_2.strip(':')]
+                        else:                            
+                            operand_start = line.find(operand_2)
+                            right_justified_error = " " * operand_start + "^Immediate not decodable to integer."
+                            errors.append( line + "\n" +  right_justified_error)
+                            continue
             if len(operand_2) > 0 and opcode.operand_2.operand_type == OperandType.AddressImmediate:
                 if opcode_str == "ST" and int(operand_2.strip("$")) < 0x3FFFFF and int(operand_2.strip("$")) >= 0x000000:
                     operand_start = line.find(operand_2)

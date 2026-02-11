@@ -191,12 +191,15 @@ def pack_operand(instruction, operand, offset, bit_width):
 instructions =  []
 instruction_opcode_decoded = []
 labels = {}
+variables = {}
 with open(assembly_file, "r") as af:
     line_count = 0
     # Gather labels first
     for line in af:
        if(line[len(line) - 1] == ':'):
             labels[line.strip(':')] = line_count+1
+       if(line[0] == '.'):
+            variables[line.strip('.').split(' ')[0]] = line.split(' ')[1]
        line_count += 1 
     errors = []
     line_count = 0
@@ -267,6 +270,8 @@ with open(assembly_file, "r") as af:
                         if operand_2.strip(':') in labels:
                             # Replace label with instruction number to allow the jump to work.
                             operand_2 = labels[operand_2.strip(':')]
+                        elif opernad_2.strip('.') in variables:
+                            operand_2 = variables[operand_2.strip('.')]
                         else:                            
                             operand_start = line.find(operand_2)
                             right_justified_error = " " * operand_start + "^Immediate not decodable to integer."

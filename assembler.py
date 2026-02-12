@@ -109,6 +109,10 @@ class Instruction:
 
 instruction_table = {
     "NOP":      Opcode(None,                        None,                           None,                           None, 1),
+    "CALL":     Opcode(Operands.RegSpacer,          Operands.Register,              None,                           None, 16),
+    "RET":      Opcode(Operands.Register,           None             ,              None,                           None, 17),
+    "PUSH":     Opcode(Operands.RegSpacer,          Operands.Register,              None,                           None, 18),
+    "POP":      Opcode(Operands.Register,           None             ,              None,                           None, 19),
     "BR":       Opcode(Operands.Register,           Operands.Register,              None,                           None, 32),
     "BEQ":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 33),
     "BNE":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 34),
@@ -196,25 +200,34 @@ with open(assembly_file, "r") as af:
     line_count = 0
     # Gather labels first
     for line in af:
-       if(line[len(line) - 1] == ':'):
-            labels[line.strip(':')] = line_count+1
-       if(line[0] == '.'):
-            variables[line.strip('.').split(' ')[0]] = line.split(' ')[1]
-       line_count += 1 
+
+        if(line[len(line) - 1] == ':'):
+             labels[line.strip(':')] = line_count+1
+        if(line[0] == '.'):
+             variables[line.strip('.').split(' ')[0]] = line.split(' ')[1]
+        line_count += 1 
     errors = []
     line_count = 0
+with open(assembly_file, "r") as af:
     for line in af:
         line_count += 1
         split = line.split(" ")
         opcode_str = split[0]
+        if line == "\n":
+            # Skip empty lines
+            continue
         if opcode_str[0] == ';':
             continue # It's a comment
         if opcode_str[len(opcode_str)-1] == ':':
             # Skip labels, already gathered
             continue
+        if opcode_str[0] == '.':
+            # Skip variables, already gathered
+            continue
         if opcode_str not in instruction_table:
             right_justified_error = "Invalid opcode"
             errors.append( line + "\n^" + right_justified_error)
+            continue
         opcode = instruction_table[opcode_str]
         arguments = line[len(opcode_str):].strip().split(",")
         if(opcode.operand_1 == Operands.RegSpacer):
@@ -244,7 +257,7 @@ with open(assembly_file, "r") as af:
                     right_justified_error = " " * operand_start + "^Register by that name does not exist."
                     errors.append( line + "\n" +  right_justified_error)
                     continue
-            if len(operand_1) > 0 and opcode.operand_1.operand_type == OperandType.IntegerImmediate20 or opcode.operand_1.operand_type == OperandType.IntegerImmediate16 or opcode.operand_2.operand_type == OperandType.IntegerImmediate15:
+            if len(operand_1) > 0 and opcode.operand_1.operand_type == OperandType.IntegerImmediate20 or opcode.operand_1.operand_type == OperandType.IntegerImmediate16 or opcode.operand_1.operand_type == OperandType.IntegerImmediate15:
                 if not can_decode_to_int(operand_1.strip("#")):
                     operand_start = line.find(operand_1)
                     right_justified_error = " " * operand_start + "^Immediate not decodable to integer."

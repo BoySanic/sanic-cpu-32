@@ -7,6 +7,8 @@ class OpCode(Enum):
 
     CALL = 16
     RET  = 17
+    PUSH = 18
+    POP = 19
 
     BR = 32
     BEQ = 33
@@ -61,41 +63,44 @@ class OpCode(Enum):
     MOV = 102
 
 class MicroOp(Enum):
-    CONDITION_EQ     = 0b0000000000000000000011010
-    CONDITION_NE     = 0b0000000000000000000011001
-    CONDITION_LE     = 0b0000000000000000000011000
-    CONDITION_LT     = 0b0000000000000000000010111
-    CONDITION_GT     = 0b0000000000000000000010110
-    CONDITION_GE     = 0b0000000000000000000010101
-    CONDITION_LEU    = 0b0000000000000000000010100
-    CONDITION_LTU    = 0b0000000000000000000010011
-    CONDITION_GEU    = 0b0000000000000000000010010
-    CONDITION_GTU    = 0b0000000000000000000010001
-    CONDITION_ALWAYS = 0b0000000000000000000010000
-    HALT             = 0b0000000000000000000100000
-    MEM_WRITE_ENABLE = 0b0000000000000000001000000
-    PC_RELATIVE_ADDR = 0b0000000000000000010000000
-    IMM_TO_A         = 0b0000000000000000100000000
-    INVERT_REG_A     = 0b0000000000000001000000000
-    PC_WRITE_ENABLE  = 0b0000000000000010000000000
-    IMM_USE_LOWER16  = 0b0000000000000100000000000
+    REG_B_SEL_SP     = 0b000000000000000000000000001
+    B_TO_PC          = 0b000000000000000000000000010 # Used solely for call
+    CONDITION_EQ     = 0b000000000000000000001101000
+    CONDITION_NE     = 0b000000000000000000001100100
+    CONDITION_LE     = 0b000000000000000000001100000
+    CONDITION_LT     = 0b000000000000000000001011100
+    CONDITION_GT     = 0b000000000000000000001011000
+    CONDITION_GE     = 0b000000000000000000001010100
+    CONDITION_LEU    = 0b000000000000000000001010000
+    CONDITION_LTU    = 0b000000000000000000001001100
+    CONDITION_GEU    = 0b000000000000000000001001000
+    CONDITION_GTU    = 0b000000000000000000001000100
+    CONDITION_ALWAYS = 0b000000000000000000001000000 # Used as a cludge on Push to direct data where it must go
+    HALT             = 0b000000000000000000010000000 # Repurpose me, currently used as a no-op for Pop
+    MEM_WRITE_ENABLE = 0b000000000000000000100000000
+    PC_RELATIVE_ADDR = 0b000000000000000001000000000
+    ZERO_TO_A        = 0b000000000000000110000000000 # Push 0 constant to register, used for LLI and LUI
+    IMM_TO_A         = 0b000000000000000010000000000
+    INVERT_REG_A     = 0b000000000000000100000000000
+    PC_WRITE_ENABLE  = 0b000000000000001000000000000
+    IMM_USE_LOWER16  = 0b000000000000010000000000000
     # MOV micro-ops (2-bit encoded)
-    REG_B_TO_A       = 0b0000000000000000000000000
-    MEM_TO_A         = 0b0000000000001000000000000
-    ALU_TO_A         = 0b0000000000010000000000000
-    AUX_TO_A         = 0b0000000000011000000000000
+    REG_B_TO_A       = 0b000000000000000000000000000
+    MEM_TO_A         = 0b000000000000100000000000000
+    ALU_TO_A         = 0b000000000001000000000000000
+    AUX_TO_A         = 0b000000000001100000000000000
     #
-    MAR_CLEAR_ENABLE = 0b0000000000100000000000000 # Repurpose, not used
-    CMP_SUB_ALU      = 0b0000000001000000000000000
-    REG_CLEAR_ENABLE = 0b0000000010000000000000000 # Not currently used? Is this better than setting the reg to zero?
-    NEXT_INSTRUCTION = 0b0000000100000000000000000
-    REG_WRITE_ENABLE = 0b0000001000000000000000000
-    REG_READ_A       = 0b0000010000000000000000000 # Repurpose, not used
-    REG_READ_B       = 0b0000100000000000000000000 # Only used in control unit 
-    ALU_ENABLE       = 0b0001000000000000000000000
-    MAR_WRITE_ENABLE = 0b0010000000000000000000000 # Repurpose, not used
-    MDR_WRITE_ENABLE = 0b0100000000000000000000000 # Repupose, not used
-    MEM_ADDR_EMIT    = 0b1000000000000000000000000 # Used for stores/loads to prevent emitting the memory address when not needed, improves peripheral compatibility
+    ADD_ALU          = 0b000000000010000000000000000  # Rename, it's used for return/pop
+    SUB_ALU          = 0b000000000100000000000000000  # Rename, it's used for call/push/cmp
+    REG_CLEAR_ENABLE = 0b000000001000000000000000000  # Repurpose me
+    NEXT_INSTRUCTION = 0b000000010000000000000000000
+    REG_WRITE_ENABLE = 0b000000100000000000000000000
+    REG_A_SEL_SP     = 0b000001000000000000000000000  # Select stack pointer register for reg a
+    REG_READ_B       = 0b000010000000000000000000000  # Only used in control unit 
+    ALU_ENABLE       = 0b000100000000000000000000000
+    HARDCODE_1_OP_B  = 0b001000000000000000000000000  # Used for Call to decrement the stack pointer
+    PC_TO_MEM        = 0b010000000000000000000000000  # Routes program counter value directly to memory data bus, no offset
+    MEM_ADDR_EMIT    = 0b100000000000000000000000000  # Used for stores/loads to prevent emitting the memory address when not needed, improves peripheral compatibility
 
 class Instruction:
     shorthand = OpCode.ADD
@@ -119,54 +124,67 @@ class Instruction:
 
 instructions = [
     Instruction(OpCode.NOP,     MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.ADD,     [MicroOp.REG_READ_A,       MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.SUB,     [MicroOp.REG_READ_A,       MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.MUL,     [MicroOp.REG_READ_A,       MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.DIV,     [MicroOp.REG_READ_A,       MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.AND,     [MicroOp.REG_READ_A,       MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.OR,      [MicroOp.REG_READ_A,       MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.XOR,     [MicroOp.REG_READ_A,       MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.ADDI,    [MicroOp.REG_READ_A,       MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.SUBI,    [MicroOp.REG_READ_A,       MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.MULI,    [MicroOp.REG_READ_A,       MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.DIVI,    [MicroOp.REG_READ_A,       MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.ANDI,    [MicroOp.REG_READ_A,       MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.ORI,     [MicroOp.REG_READ_A,       MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.XORI,    [MicroOp.REG_READ_A,       MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.CMP,     [MicroOp.REG_READ_A,       MicroOp.REG_READ_B, MicroOp.CMP_SUB_ALU, MicroOp.ALU_ENABLE, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.BR,      [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_ALWAYS],  MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BEQ,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_EQ], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BNE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_NE], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BLE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_LE], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BLT,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_LT], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BGT,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_GT], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BGE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_GE], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BLEU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_LEU], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BLTU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_LTU], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BGEU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_GEU], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.BGTU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_GTU], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.CALL,    [MicroOp.REG_A_SEL_SP, MicroOp.SUB_ALU, MicroOp.HARDCODE_1_OP_B, MicroOp.ALU_TO_A, MicroOp.REG_WRITE_ENABLE], 
+                                [MicroOp.REG_A_SEL_SP, MicroOp.B_TO_PC, MicroOp.PC_WRITE_ENABLE, MicroOp.PC_TO_MEM, MicroOp.MEM_WRITE_ENABLE],
+                                MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.RET,     [MicroOp.REG_A_SEL_SP, MicroOp.MEM_TO_A, MicroOp.MEM_ADDR_EMIT, MicroOp.REG_WRITE_ENABLE], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.PUSH,    [MicroOp.REG_A_SEL_SP, MicroOp.SUB_ALU, MicroOp.HARDCODE_1_OP_B, MicroOp.ALU_TO_A, MicroOp.REG_WRITE_ENABLE],
+                                [MicroOp.REG_A_SEL_SP, MicroOp.REG_READ_B, MicroOp.CONDITION_ALWAYS, MicroOp.MEM_ADDR_EMIT, MicroOp.MEM_WRITE_ENABLE],
+                                MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.POP,     [MicroOp.REG_B_SEL_SP, MicroOp.MEM_TO_A, MicroOp.MEM_ADDR_EMIT, MicroOp.REG_WRITE_ENABLE],
+                                [MicroOp.REG_A_SEL_SP, MicroOp.ADD_ALU, MicroOp.HARDCODE_1_OP_B, MicroOp.ALU_TO_A, MicroOp.REG_WRITE_ENABLE],
+                                MicroOp.NEXT_INSTRUCTION),
+
+    Instruction(OpCode.ADD,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.SUB,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.MUL,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.DIV,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.AND,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.OR,      [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.XOR,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
     
-    Instruction(OpCode.JMP,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_ALWAYS, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JEQ,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_EQ, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JNE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_NE, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JLE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_LE, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JLT,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_LT, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JGT,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_GT, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JGE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_GE, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JLEU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_LEU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JLTU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_LTU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JGEU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_GEU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.JGTU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.REG_READ_A, MicroOp.CONDITION_GTU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.ADDI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.SUBI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.MULI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.DIVI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.ANDI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.ORI,     [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.XORI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    
+    Instruction(OpCode.CMP,     [MicroOp.REG_READ_B, MicroOp.SUB_ALU, MicroOp.ALU_ENABLE, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.BR,      [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_ALWAYS],  MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BEQ,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_EQ], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BNE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_NE], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BLE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_LE], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BLT,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_LT], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BGT,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_GT], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BGE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_GE], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BLEU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_LEU], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BLTU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_LTU], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BGEU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_GEU], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.BGTU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_GTU], MicroOp.NEXT_INSTRUCTION),
+    
+    Instruction(OpCode.JMP,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_ALWAYS, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JEQ,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_EQ, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JNE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_NE, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JLE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_LE, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JLT,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_LT, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JGT,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_GT, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JGE,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_GE, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JLEU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_LEU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JLTU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_LTU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JGEU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_GEU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.JGTU,    [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_GTU, MicroOp.PC_RELATIVE_ADDR], MicroOp.NEXT_INSTRUCTION),
     
     Instruction(OpCode.LD,      [MicroOp.REG_READ_B,       MicroOp.MEM_TO_A, MicroOp.MEM_ADDR_EMIT, MicroOp.REG_WRITE_ENABLE],  MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.ST,      [MicroOp.REG_READ_A,       MicroOp.REG_READ_B, MicroOp.MEM_ADDR_EMIT, MicroOp.MEM_WRITE_ENABLE],  MicroOp.NEXT_INSTRUCTION),
-    Instruction(OpCode.LUI,     MicroOp.REG_CLEAR_ENABLE, [MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.LLI,     MicroOp.REG_CLEAR_ENABLE, [MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_USE_LOWER16, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.NOT,     [MicroOp.REG_READ_A,       MicroOp.INVERT_REG_A, MicroOp.REG_WRITE_ENABLE, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.ST,      [MicroOp.REG_READ_B, MicroOp.MEM_ADDR_EMIT, MicroOp.MEM_WRITE_ENABLE],  MicroOp.NEXT_INSTRUCTION),
+    Instruction(OpCode.LUI,     [MicroOp.ZERO_TO_A, MicroOp.REG_WRITE_ENABLE], [MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.LLI,     [MicroOp.ZERO_TO_A, MicroOp.REG_WRITE_ENABLE], [MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_USE_LOWER16, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.NOT,     [MicroOp.INVERT_REG_A, MicroOp.REG_WRITE_ENABLE, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.MOV,     [MicroOp.REG_READ_B,       MicroOp.REG_WRITE_ENABLE], MicroOp.NEXT_INSTRUCTION)
 ]
 
-opcode_pad_width = len(MicroOp)-8
+opcode_pad_width = len(MicroOp)-9
 opcode_width = 7
 cycle_width = 2
 micro_op_width = opcode_width + cycle_width

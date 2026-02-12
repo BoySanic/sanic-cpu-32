@@ -1,3 +1,104 @@
+; consts
+.rom_addr_hi #0
+.peripheral_addr_hi #64
+.memory_addr_hi #128
+.char_space #32
+.char_exclamation #33
+.char_dquote #34
+.char_pound #35
+.char_dollar #36
+.char_percent #37
+.char_ampersand #38
+.char_quote #39
+.char_lparan #40
+.char_rparan #41
+.char_star #42
+.char_plus #43
+.char_comma #44
+.char_dash #45
+.char_period #46
+.char_forwardslash #47
+.0 #48
+.1 #49
+.2 #50
+.3 #51
+.4 #52
+.5 #53
+.6 #54
+.7 #55
+.8 #56
+.9 #57
+.char_colon #58
+.char_semicolon #59
+.char_lt #60
+.char_equals #61
+.char_gt #62
+.char_question #63
+.char_at #64
+.A #65
+.B #66
+.C #67
+.D #68
+.E #69
+.F #70
+.G #71
+.H #72
+.I #73
+.J #74
+.K #75
+.L #76
+.M #77
+.N #78
+.O #79
+.P #80
+.Q #81
+.R #82
+.S #83
+.T #84
+.U #85
+.V #86
+.W #87
+.X #88
+.Y #89
+.Z #90
+.char_leftbrack #91
+.char_backslash #92
+.char_rightbrack #93
+.char_carat #94
+.char_underscore #95
+.char_grave #96
+.a #97
+.b #98
+.c #99
+.d #100
+.e #101
+.f #102
+.g #103
+.h #104
+.i #105
+.j #106
+.k #107
+.l #108
+.m #109
+.n #110
+.o #111
+.p #112
+.q #113
+.r #114
+.s #115
+.t #116
+.u #117
+.v #118
+.w #119
+.x #120
+.y #121
+.z #122
+.char_leftcurly #123
+.char_pipe #124
+.char_rightcurly #125
+.char_tilde #126
+
+
 ; Load peripheral addresses into registers
 LUI GP31, #64 ; Peripheral address
 MOV GP30, GP31 ; Copy peripheral address
@@ -10,4 +111,22 @@ ADDI GP29, #65535 ; Max memory address
 SUBI GP29, #256 ; Reduce stack to allocate memory for command table (256 4-byte words)
 MOV GP28, GP29 ; Copy pointer for command table to GP28
 
+; Add command words
+LLI GP0, .h      ; set to .h value 
+SHLI GP0, #8     ; Shift left 8  bits 
+ADDI GP0, .i     ; Add ascii value for LLI
+ST GP0, GP28, #0 ; Store numeric value of hi to command table + 2 (the word in between command words is the pointer to the reply)
+
+
+; Calling convention
+; GP23-26 (4) = function parameters
+; 27 = return pointer (to return to calling function entrypoint + 1)
+; 28 = return value
+; 29 = stack pointer
+; 30 = kb pointer
+; 31 = tty pointer
+malloc:
+SUB GP29, GP23  ; subtract GP0 words from stack pointer
+MOV GP29, GP28  ; return pointer
+BR GP27, #0     ; return control to calling function
 

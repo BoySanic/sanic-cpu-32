@@ -110,9 +110,10 @@ class Instruction:
 instruction_table = {
     "NOP":      Opcode(None,                        None,                           None,                           None, 1),
     "CALL":     Opcode(Operands.RegSpacer,          Operands.Register,              None,                           None, 16),
-    "RET":      Opcode(Operands.Register,           None             ,              None,                           None, 17),
-    "PUSH":     Opcode(Operands.RegSpacer,          Operands.Register,              None,                           None, 18),
-    "POP":      Opcode(Operands.Register,           None             ,              None,                           None, 19),
+    "CALLI":    Opcode(Operands.RegSpacer,          Operands.IntegerImmediate16,    None,                           None, 17),
+    "RET":      Opcode(None,                        None             ,              None,                           None, 18),
+    "PUSH":     Opcode(Operands.RegSpacer,          Operands.Register,              None,                           None, 19),
+    "POP":      Opcode(Operands.Register,           None             ,              None,                           None, 20),
     "BR":       Opcode(Operands.Register,           Operands.Register,              None,                           None, 32),
     "BEQ":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 33),
     "BNE":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 34),
@@ -200,20 +201,33 @@ with open(assembly_file, "r") as af:
     line_count = 0
     # Gather labels first
     for line in af:
+        stripped_line = line.strip('\n').strip()
+        if(len(stripped_line) > 0):
+            if(debug):
+                print(f"last char: {stripped_line[len(stripped_line)-1]}")
+            if(stripped_line[len(stripped_line) - 1] == ':'):
+                labels[stripped_line.strip(':')] = line_count+1
+            if(line[0] == '.'):
+                variables[stripped_line.strip('.').split(' ')[0]] = stripped_line.split(' ')[1]
+            if(stripped_line[0] != ';' and stripped_line[0] != '\n' and stripped_line[len(stripped_line) - 1] != ':'):
+                line_count += 1 
+errors = []
+line_count = 1
+if(debug):
+    for label in labels:
+        print(f"Label: {label} val: {labels[label]}")
 
-        if(line[len(line) - 1] == ':'):
-             labels[line.strip(':')] = line_count+1
-        if(line[0] == '.'):
-             variables[line.strip('.').split(' ')[0]] = line.split(' ')[1]
-        line_count += 1 
-    errors = []
-    line_count = 0
 with open(assembly_file, "r") as af:
     for line in af:
-        line_count += 1
-        split = line.split(" ")
+        temp_line = line
+        stripped_line = temp_line.strip()
+        split = stripped_line.split(" ")
         opcode_str = split[0]
-        if line == "\n":
+        if debug == True:
+            print(f"raw line: {repr(temp_line)} len: {len(temp_line)}")
+            print(f"opcode split count: {len(split)}")
+            print(f"opcode str: {opcode_str} (len: {len(opcode_str)})")
+        if temp_line == "" or temp_line == "\n":
             # Skip empty lines
             continue
         if opcode_str[0] == ';':
@@ -226,23 +240,82 @@ with open(assembly_file, "r") as af:
             continue
         if opcode_str not in instruction_table:
             right_justified_error = "Invalid opcode"
-            errors.append( line + "\n^" + right_justified_error)
+            errors.append( temp_line + "\n^" + right_justified_error)
             continue
+        line_count += 1
         opcode = instruction_table[opcode_str]
-        arguments = line[len(opcode_str):].strip().split(",")
-        if(opcode.operand_1 == Operands.RegSpacer):
-                operand_1 = ""
-                operand_2 = arguments[0].strip().split(';')[0]
-        else:
-            operand_1 = arguments[0].strip().split(';')[0]
-            operand_2 = ""
+        arguments = stripped_line[len(opcode_str):].strip().split(",")
+        operand_1 = ""
+        operand_2 = ""
         operand_3 = ""
         operand_4 = ""
-        if len(arguments) > 1:
+        op1_comment = False
+        op2_comment = False
+        op3_comment = False
+        op4_comment = False 
+        if(opcode.operand_1 == Operands.RegSpacer):
+            operand_2 = arguments[0].strip().split(';')[0]
+            if len(arguments[0].strip().split(';')) > 1:
+                op1_comment = True
+                op2_comment = True
+                op3_comment = True
+            if operand_2[0] == ':':
+                # Is label
+                if debug:
+                    print(f"{operand_2} is a label (top)")
+                if operand_2.strip(':').strip() in labels:
+                    if debug:
+                        print(f"label exists in dict")
+                    # Replace label with instruction number to allow the jump to work.
+                    label_value = labels[operand_2.strip(':').strip()]
+                    operand_2 = f"#{(label_value - line_count)}"# Set operand_2 to the difference
+                    if debug:
+                        print(f"translated op: {operand_2}")
+                    # Added complexity as well if the target line is more than 16-bits of lines away? It should be rejected until we implement some kind of far branching
+    
+        elif opcode.operand_1 != None:
+            operand_1 = arguments[0].strip().split(';')[0]
+            if len(arguments[0].strip().split(';')) > 1:
+                op1_comment = True
+                op2_comment = True
+                op3_comment = True
+            if(debug):
+                print(f"operand_1: {operand_1}")
+            if operand_1[0] == ':':
+                # Is label
+                if debug:
+                    print(f"{operand_1} is a label (mid)")
+                if operand_1.strip(':').strip() in labels:
+                    if debug:
+                        print(f"label exists in dict")
+                    # Replace label with instruction number to allow the jump to work.
+                    label_value = labels[operand_1.strip(':').strip()]
+                    operand_1 = f"#{(label_value - line_count)}"# Set operand_2 to the difference 
+                    # Added complexity as well if the target line is more than 16-bits of lines away? It should be rejected until we implement some kind of far branching
+        if len(arguments) > 1 and op1_comment == False:
             operand_2 = arguments[1].strip().split(";")[0]
-        if len(arguments) > 2: 
+            if debug:
+                print(f"operand_2: {operand_2}")
+            if len(arguments[1].strip().split(';')) > 1:
+                op2_comment = True
+            if operand_2[0] == ':':
+                # Is label
+                if debug:
+                    print(f"{operand_2} is a label (bot)")
+                if operand_2.strip(':').strip() in labels:
+                    if debug:
+                        print(f"label exists in dict")
+                    # Replace label with instruction number to allow the jump to work.
+                    label_value = labels[operand_2.strip(':').strip()]
+                    operand_2 = f"#{(label_value - line_count)}"# Set operand_2 to the difference 
+                    # Added complexity as well if the target line is more than 16-bits of lines away? It should be rejected until we implement some kind of far branching
+        if len(arguments) > 2 and op1_comment == False and op2_comment == False: 
             operand_3 = arguments[2].strip().split(";")[0]
-        if len(arguments) > 3:
+            if len(arguments[2].strip().split(';')) > 1:
+                op3_comment = True
+        if len(arguments) > 3 and op1_comment == False and op2_comment == False and op3_comment == False:
+            if len(arguments[3].strip().split(';')) > 1:
+                op4_comment = True
             operand_4 = arguments[3].strip().split(";")[0]
         if opcode.operand_1 != None and opcode.operand_1 != Operands.RegSpacer:
             if opcode.operand_1.operand_type != OperandType.Register and opcode.operand_1.operand_type != OperandType.SpecialRegister and opcode.operand_1.operand_type != OperandType.Condition:
@@ -263,7 +336,7 @@ with open(assembly_file, "r") as af:
                     right_justified_error = " " * operand_start + "^Immediate not decodable to integer."
                     errors.append( line + "\n" +  right_justified_error)
                     continue
-        if opcode.operand_2 != None:
+        if opcode.operand_2 != None and len(arguments) > 1:
             if opcode.operand_2.operand_type != OperandType.Register and opcode.operand_2.operand_type != OperandType.SpecialRegister:
                 if operand_2[0] != operandtype_prefixes[opcode.operand_2.operand_type]:
                     operand_start = line.find(operand_2)
@@ -280,10 +353,7 @@ with open(assembly_file, "r") as af:
                 if not can_decode_to_int(operand_2.strip("#")):
                     if operand_2[0] == ':':
                         # Check for Label
-                        if operand_2.strip(':') in labels:
-                            # Replace label with instruction number to allow the jump to work.
-                            operand_2 = labels[operand_2.strip(':')]
-                        elif opernad_2.strip('.') in variables:
+                        if opernad_2.strip('.') in variables:
                             operand_2 = variables[operand_2.strip('.')]
                         else:                            
                             operand_start = line.find(operand_2)

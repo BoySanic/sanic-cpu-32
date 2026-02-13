@@ -147,6 +147,8 @@ instructions = [
     Instruction(OpCode.AND,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.OR,      [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.XOR,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.SHL,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.SHR,     [MicroOp.REG_READ_B, MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
     
     Instruction(OpCode.ADDI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.SUBI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
@@ -155,7 +157,9 @@ instructions = [
     Instruction(OpCode.ANDI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.ORI,     [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.XORI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
-    
+    Instruction(OpCode.SHLI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+    Instruction(OpCode.SHRI,    [MicroOp.ALU_ENABLE, MicroOp.REG_WRITE_ENABLE, MicroOp.ALU_TO_A, MicroOp.NEXT_INSTRUCTION]),
+
     Instruction(OpCode.CMP,     [MicroOp.REG_READ_B, MicroOp.SUB_ALU, MicroOp.ALU_ENABLE, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.BR,      [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_ALWAYS],  MicroOp.NEXT_INSTRUCTION),
     Instruction(OpCode.BEQ,     [MicroOp.PC_WRITE_ENABLE,  MicroOp.CONDITION_EQ], MicroOp.NEXT_INSTRUCTION),
@@ -186,7 +190,7 @@ instructions = [
     Instruction(OpCode.LUI,     [MicroOp.ZERO_TO_A, MicroOp.REG_WRITE_ENABLE], [MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.LLI,     [MicroOp.ZERO_TO_A, MicroOp.REG_WRITE_ENABLE], [MicroOp.REG_WRITE_ENABLE, MicroOp.IMM_USE_LOWER16, MicroOp.IMM_TO_A, MicroOp.NEXT_INSTRUCTION]),
     Instruction(OpCode.NOT,     [MicroOp.INVERT_REG_A, MicroOp.REG_WRITE_ENABLE, MicroOp.NEXT_INSTRUCTION]),
-    Instruction(OpCode.MOV,     [MicroOp.REG_READ_B,       MicroOp.REG_WRITE_ENABLE], MicroOp.NEXT_INSTRUCTION)
+    Instruction(OpCode.MOV,     [MicroOp.REG_READ_B,       MicroOp.REG_WRITE_ENABLE, MicroOp.NEXT_INSTRUCTION])
 ]
 
 opcode_pad_width = len(MicroOp)-9

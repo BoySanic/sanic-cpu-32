@@ -2,6 +2,7 @@
 .rom_addr_hi #0
 .peripheral_addr_hi #64
 .memory_addr_hi #128
+.char_NUL #0
 .char_newline #10
 .char_space #32
 .char_exclamation #33
@@ -112,27 +113,73 @@ LUI GP30, #128 ; Minimum memory address, heap grow upward?
 
 ; "Hello there, traveller!\n" 6 words for reply, 1 word for command
 ; Allocate memory for command and response
-LLI GP23, #7 ; Allocate 7 words total 
-CALL :malloc ; Obtain the pointer, it's now on GP28
+LLI GP23, #7 ; Allocate 7 words total
+CALLI :malloc ; Obtain the pointer, it's now on GP28
 
 ; Add command words
 LLI GP0, .i      ; set to .h value 
 SHLI GP0, #8     ; Shift left 8  bits 
 ADDI GP0, .h     ; Add ascii value for LLI
-ST GP0, GP28, #0 ; Store command in first word
+MOV GP21, GP28    ; Copy function return value to somewhere we can control a bit better.
+ST GP0, GP21, #0 ; Store command in first word
+
+LLI GP20, .char_newline
 
 LLI GP0, .l
 SHLI GP0, #8
 ADDI GP0, .l
 SHLI GP0, #8
 ADDI GP0, .e
-SHLI GP0, .h
-ST GP0, GP28, #1 ; Store first chunk of reply
+SHLI GP0, #8
+ADDI GP0, .h
+ST GP0, GP21, #1 ; Store first chunk of reply
+
 LLI GP0, .h
 SHLI GP0, #8
+ADDI GP0, .t
+SHLI GP0, #8
+ADDI GP0, .char_space
+SHLI GP0, #8
+ADDI GP0, .o
+ST GP0, GP21, #2 ; Store second chunk of reply
 
-SHLI GP
+LLI GP0, .char_comma
+SHLI GP0, #8
+ADDI GP0, .e
+SHLI GP0, #8
+ADDI GP0, .r
+SHLI GP0, #8
+ADDI GP0, .e
+ST GP0, GP21, #3 ; Store third chunk of reply
 
+LLI GP0, .a
+SHLI GP0, #8
+ADDI GP0, .r
+SHLI GP0, #8 
+ADDI GP0, .t
+SHLI GP0, #8
+ADDI GP0, .char_space
+ST GP0, GP21, #4 ; Store 4th chunk of reply
+
+LLI GP0, .l
+SHLI GP0, #8
+ADDI GP0, .l
+SHLI GP0, #8
+ADDI GP0, .e
+SHLI GP0, #8
+ADDI GP0, .v
+ST GP0, GP21, #5 ; Store 5th chunk of reply
+
+LLI GP0, .char_newline
+SHLI GP0, #8
+ADDI GP0, .char_exclamation
+SHLI GP0, #8
+ADDI GP0, .r
+SHLI GP0, #8
+ADDI GP0, .e
+ST GP0, GP21, #6 ; Store final chunk of reply 
+
+JMP :prompt
 ; Calling convention
 ; GP 
 ; GP23-26 (4) = function parameters
@@ -141,8 +188,67 @@ SHLI GP
 ; 29 = stack pointer (grows down)
 ; 30 = heap pointer (grows up)
 ; 31 = peripheral pointer
-malloc: ; Given a number of words to allocate, add that value to the heap pointer and return the old heap pointer value for use in those bounds 
+malloc: 
+; Given a number of words to allocate, add that value to the heap pointer and return the old heap pointer value for use in those bounds 
   MOV GP0, GP30  ; Save heap pointer
   ADD GP30, GP23 ; Add GP23 words to heap pointer
   MOV GP28, GP0  ; Mov old heap pointer to return register
   RET            ; return
+
+display_output:
+  more_to_process:
+  MOV GP0, GP23
+  LD GP1, GP0, #0 ; Load first word of reply
+  MOV GP2, GP1 ; Copy
+  SHRI GP2, #24 ; Shifts right 24 bits, effectively putting top 8 bits at bottom.
+  ST GP2, GP31, #1 ; Store character on tty
+  MOV GP2, GP1 ; Copy
+  SHLI GP2, #8 ; Shift up 8 bits to throw away the top 8 bits
+  SHRI GP2, #24 ; Shift down 24 bits to throw away the bottom 16 bits and keep the 3rd highest 8 bits
+  ST GP2, GP31, #1 ; store cahracter on tty
+  MOV GP2, GP1 ; Copy
+  SHLI GP2, #16 ; Shift up 16 bits to throw away top 16 bits
+  SHRI GP2, #24 ; Shift down 24 bits to throw away the bottom 8 bits, keeping 2nd highest 8 bits
+  ST GP2, GP30, #1
+  MOV GP2, GP1 ; Copy
+  SHLI GP2, #24 ; Shift up 24 bits to throw away top 24
+  SHRI GP2, #24 ; Shift down 24 bits to put it back where it belongs.
+  ST GP2, GP31, #1
+  CMP GP2, GP20 ; Check if newline
+  JNE :more_to_process
+  RET
+
+process_input:
+  MOV GP0, GP23 ; Copy parameter
+  pi_loop:
+  MOV GP2, GP21 ; Copy heap pointer 
+  LD GP1, GP21, #0 ; Load in the first command word for the command table
+  CMP GP0, GP1 ; Check if they match
+  JNE :not_match ; Jump away if they don't match
+  ADDI GP2, #1 ; Add one to advance pointer to the beginning of the reply 
+  MOV GP28, GP2 ; Set parameter to pointer
+  CALLI :display_output
+  RET
+  not_match:
+  ADDI GP2, #1 ; Advance pointer
+  JMP :pi_loop ; Jump back to beginning of function to try again
+prompt:
+  loop:
+    LD GP0, GP31, #2    ; Load keyboard next value into register
+    CMP GP0, GP21       ; Check if it's empty
+    JEQ :loop
+    ST GP0, GP31, #1    ; Display it on the screen
+    CMP GP0, GP20       ; check if this character is a newline
+    JNE :continue_prompt  ; Jump if that character is a newline
+    MOV GP23, GP2
+    PUSH GP0
+    PUSH GP1
+    PUSH GP2
+    CALLI :process_input  ; Call process input
+    POP GP2
+    POP GP1
+    POP GP0
+  continue_prompt:
+    ADD GP2, GP0        ; We have a value, so add it to the word
+    SHLI GP2, #8
+    JMP :loop

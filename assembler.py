@@ -155,8 +155,8 @@ instruction_table = {
     "ORI" :     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010100),
     "ANDI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010101),
     "XORI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010110),
-    "SHIR":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010111),
-    "SHIL":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1011000),
+    "SHRI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010111),
+    "SHLI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1011000),
 
     "LD":       Opcode(Operands.Register,           Operands.Register,              Operands.IntegerImmediate15,    None, 96),
     "ST":       Opcode(Operands.Register,           Operands.Register,              Operands.IntegerImmediate15,    None, 97),
@@ -170,11 +170,14 @@ instruction_table = {
 assembly_file = ""
 out_path = ""
 debug = False
+vars_and_stuff = False
 if len(sys.argv) > 1:
     assembly_file = sys.argv[1]
     out_path = sys.argv[2]
     if(len(sys.argv) > 3):
-        debug = True
+        vars_and_stuff = True
+    if(len(sys.argv) > 4):
+        debug = True 
 
 
 #XORI GP0, #1
@@ -201,19 +204,25 @@ with open(assembly_file, "r") as af:
     line_count = 0
     # Gather labels first
     for line in af:
-        stripped_line = line.strip('\n').strip()
+        stripped_line = line.strip('\n').strip().split(';')[0]
         if(len(stripped_line) > 0):
             if(debug):
                 print(f"last char: {stripped_line[len(stripped_line)-1]}")
             if(stripped_line[len(stripped_line) - 1] == ':'):
                 labels[stripped_line.strip(':')] = line_count+1
-            if(line[0] == '.'):
+            if(stripped_line[0] == '.'):
+                if(vars_and_stuff):
+                    print(f"DEBUG: {stripped_line}")
+                    print(f"DEBUG: {stripped_line.strip('.').split(' ')[0]}")
+                    print(f"DEBUG: {stripped_line.strip('.').split(' ')[1]}")
                 variables[stripped_line.strip('.').split(' ')[0]] = stripped_line.split(' ')[1]
-            if(stripped_line[0] != ';' and stripped_line[0] != '\n' and stripped_line[len(stripped_line) - 1] != ':'):
+            if(stripped_line[0] != ';' and stripped_line[0] != '\n' and stripped_line[len(stripped_line) - 1] != ':' and stripped_line[0] != '.'):
                 line_count += 1 
 errors = []
 line_count = 1
-if(debug):
+if(vars_and_stuff):
+    for variable in variables:
+        print(f"Variable: {variable} val: {variables[variable]}")
     for label in labels:
         print(f"Label: {label} val: {labels[label]}")
 
@@ -269,7 +278,7 @@ with open(assembly_file, "r") as af:
                     # Replace label with instruction number to allow the jump to work.
                     label_value = labels[operand_2.strip(':').strip()]
                     operand_2 = f"#{(label_value - line_count)}"# Set operand_2 to the difference
-                    if debug:
+                    if vars_and_stuff:
                         print(f"translated op: {operand_2}")
                     # Added complexity as well if the target line is more than 16-bits of lines away? It should be rejected until we implement some kind of far branching
     
@@ -309,6 +318,11 @@ with open(assembly_file, "r") as af:
                     label_value = labels[operand_2.strip(':').strip()]
                     operand_2 = f"#{(label_value - line_count)}"# Set operand_2 to the difference 
                     # Added complexity as well if the target line is more than 16-bits of lines away? It should be rejected until we implement some kind of far branching
+            if operand_2[0] == '.':
+                # Is variable
+                if operand_2.strip('.').strip() in variables:
+                    var_value = variables[operand_2.strip('.').strip()]
+                    operand_2 = f"#{var_value}"
         if len(arguments) > 2 and op1_comment == False and op2_comment == False: 
             operand_3 = arguments[2].strip().split(";")[0]
             if len(arguments[2].strip().split(';')) > 1:
@@ -353,8 +367,8 @@ with open(assembly_file, "r") as af:
                 if not can_decode_to_int(operand_2.strip("#")):
                     if operand_2[0] == ':':
                         # Check for Label
-                        if opernad_2.strip('.') in variables:
-                            operand_2 = variables[operand_2.strip('.')]
+                        if operand_2.strip('.') in variables:
+                            operand_2 = f"{variables[operand_2.strip('.')]}"
                         else:                            
                             operand_start = line.find(operand_2)
                             right_justified_error = " " * operand_start + "^Immediate not decodable to integer."

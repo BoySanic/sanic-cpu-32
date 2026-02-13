@@ -111,9 +111,24 @@ ADDI GP29, #65535 ; Max memory address
 ; Heap allocation
 LUI GP30, #128 ; Minimum memory address, heap grow upward?
 
+; I want the interpreter to do more than just reply back with some text. So, maybe we need something more generic
+; Say I enter add as a command. It should prompt for input again asking for the operands one at a time.
+; So, prompt label becomes a function that prompts for input and returns the pointer to the input on heap?
+; What problems do I foresee with that approach:
+;   - Having to deal with allocating heap each time we fill a word and need to push it
+;   - Given a character, we need to convert it to the actual numerical value of the text, not the ascii values.
+;   - number 0 is 48 in ascii, number 9 is 57 in ascii
+;   - Subtract 48 from the character we pull in, check if it's GE (JGE) 0 and LE (JLE) 9
+;   - If the given value is not between those two, we know it's not valid
+;   - We reject adding that character unless it's a newline. If it's a newline, that's the end of input.
+; Building the number
+;   - We're given one digit at a time, starting from the topmost digit. We multiply it by 10, since base 10, then add the next digit to it.
+;   - One register for obtaining the next character and converting it into the digit
+;   - One register holding the number we are assembling
+;   - We can check whether the number would overflow before allowing it to overflow. Copy the value we want to check, 
 ; "Hello there, traveller!\n" 6 words for reply, 1 word for command
 ; Allocate memory for command and response
-LLI GP23, #7 ; Allocate 7 words total
+LLI GP23, #26 ; Allocate 26 words for both commands
 CALLI :malloc ; Obtain the pointer, it's now on GP28
 
 ; Add command words
@@ -155,17 +170,21 @@ ADDI GP0, .e
 SHLI GP0, #8
 ADDI GP0, .char_comma
 ST GP0, GP10, #3 ; Store third chunk of reply
-
-LLI GP0, .char_space
-SHLI GP0, #8
-ADDI GP0, .t
+; CALL/RET are 3 cycles each, 6 cycles per fuction call for overhead, plus the push/pops of registers we may or may not care about
+; Plus the 1 cycle to MOV into GP23 and the 1 cycle to MOV into GP28 for return value. 6 + 2 cycles minimum - unless the function returns no value?
+;
+LLI GP0, .char_space ; 2 cycles
+SHLI GP0, #8 ; 1 cycle per arithmetic
+ADDI GP0, .t 
 SHLI GP0, #8 
 ADDI GP0, .r
 SHLI GP0, #8
 ADDI GP0, .a
-ST GP0, GP10, #4 ; Store 4th chunk of reply
+ST GP0, GP10, #4 ; Store 4th chunk of reply (2 cycles for a store) (6 cycles for arithemtic + 4 cycles = 10 cycles per word created from immediates)
+; Roughly 60% performance impact to throw these into a function call, but would clean up the code? 
+; Maybe better to just expand a pseudoinstruction?
+; Scratch the above - would be WAY better if this was just baked into the ROM as data. Then anywhere it's referenced you expand to the address in ROM
 
-LLI GP0, .v
 SHLI GP0, #8
 ADDI GP0, .e
 SHLI GP0, #8
@@ -182,6 +201,177 @@ ADDI GP0, .char_exclamation
 SHLI GP0, #8
 ADDI GP0, .char_newline
 ST GP0, GP10, #6 ; Store final chunk of reply 
+; wood, "How much wood could a woodchuck chuck if a woodchuck could chuck wood? \n" 18 words
+LLI GP0, .w 
+SHLI GP0, #8
+ADDI GP0, .o
+SHLI GP0, #8
+ADDI GP0, .o
+SHLI GP0, #8
+ADDI GP0, .d
+ST GP0, GP10, #7 ; Store next command word
+
+LLI GP0, .H
+SHLI GP0, #8
+ADDI GP0, .o
+SHLI GP0, #8
+ADDI GP0, .w
+SHLI GP0, #8
+ADDI GP0, .char_space
+ST GP0, GP10, #8
+
+LLI GP0, .m
+SHLI GP0, #8
+ADDI GP0, .u
+SHLI GP0, #8
+ADDI GP0, .c
+SHLI GP0, #8
+ADDI GP0, .h
+ST GP0, GP10, #9
+
+LLI GP0, .char_space 
+SHLI GP0, #8
+ADDI GP0, .w
+SHLI GP0, #8
+ADDI GP0, .o
+SHLI GP0, #8
+ADDI GP0, .o
+ST GP0, GP10, #10
+
+LLI GP0, .d
+SHLI GP0, #8
+ADDI GP0, .char_space
+SHLI GP0, #8
+ADDI GP0, .c
+SHLI GP0, #8
+ADDI GP0, .o
+ST GP0, GP10, #11
+
+LLI GP0, .u
+SHLI GP0, #8
+ADDI GP0, .l
+SHLI GP0, #8
+ADDI GP0, .d
+SHLI GP0, #8
+ADDI GP0, .char_space
+ST GP0, GP10, #12 
+
+LLI GP0, .a
+SHLI GP0, #8
+ADDI GP0, .char_space
+SHLI GP0, #8
+ADDI GP0, .w
+SHLI GP0, #8
+ADDI GP0, .o
+ST GP0, GP10, #13
+
+LLI GP0, .o
+SHLI GP0, #8
+ADDI GP0, .d
+SHLI GP0, #8
+ADDI GP0, .c
+SHLI GP0, #8
+ADDI GP0, .h
+ST GP0, GP10, #14
+
+LLI GP0, .u
+SHLI GP0, #8
+ADDI GP0, .c
+SHLI GP0, #8
+ADDI GP0, .k
+SHLI GP0, #8
+ADDI GP0, .char_space
+ST GP0, GP10, #15
+
+LLI GP0, .c
+SHLI GP0, #8
+ADDI GP0, .h
+SHLI GP0, #8
+ADDI GP0, .u
+SHLI GP0, #8
+ADDI GP0, .c
+ST GP0, GP10, #16
+
+LLI GP0, .k
+SHLI GP0, #8
+ADDI GP0, .char_space
+SHLI GP0, #8
+ADDI GP0, .i
+SHLI GP0, #8
+ADDI GP0, .f
+ST GP0, GP10, #17
+
+LLI GP0, .char_space
+SHLI GP0, #8
+ADDI GP0, .a
+SHLI GP0, #8
+ADDI GP0, .char_space
+SHLI GP0, #8
+ADDI GP0, .w
+ST GP0, GP10, #18
+
+LLI GP0, .o
+SHLI GP0, #8
+ADDI GP0, .o
+SHLI GP0, #8
+ADDI GP0, .d
+SHLI GP0, #8
+ADDI GP0, .c
+ST GP0, GP10, #19
+
+LLI GP0, .h
+SHLI GP0, #8
+ADDI GP0, .u
+SHLI GP0, #8
+ADDI GP0, .c
+SHLI GP0, #8
+ADDI GP0, .k
+ST GP0, GP10, #20
+
+LLI GP0, .char_space
+SHLI GP0, #8
+ADDI GP0, .c
+SHLI GP0, #8
+ADDI GP0, .o
+SHLI GP0, #8
+ADDI GP0, .u
+ST GP0, GP10, #21
+
+LLI GP0, .l
+SHLI GP0, #8
+ADDI GP0, .d
+SHLI GP0, #8
+ADDI GP0, .char_space
+SHLI GP0, #8
+ADDI GP0, .c
+ST GP0, GP10, #22
+
+LLI GP0, .h
+SHLI GP0, #8
+ADDI GP0, .u
+SHLI GP0, #8
+ADDI GP0, .c
+SHLI GP0, #8
+ADDI GP0, .k
+ST GP0, GP10, #23
+
+LLI GP0, .char_space
+SHLI GP0, #8
+ADDI GP0, .w
+SHLI GP0, #8
+ADDI GP0, .o
+SHLI GP0, #8
+ADDI GP0, .o
+ST GP0, GP10, #24
+
+LLI GP0, .d
+SHLI GP0, #8
+ADDI GP0, .char_question
+SHLI GP0, #8
+ADDI GP0, .char_NUL
+SHLI GP0, #8
+ADDI GP0, .char_newline
+ST GP0, GP10, #25
 
 JMP :prompt
 ; Calling convention

@@ -3,6 +3,7 @@
 .peripheral_addr_hi #64
 .memory_addr_hi #128
 .char_NUL #0
+.char_Backspace #8
 .char_newline #10
 .char_space #32
 .char_exclamation #33
@@ -394,7 +395,6 @@ MOV GP0, GP28  ; Copy return value
 MOV GP23, GP0 ; Copy return value to next function call
 MOV GP24, GP10
 PUSH GP10 ; Stack: Command struct pointer
-PUSH GP0  ; Stack: Input pointer, Command struct array pointer
 CALLI :find_match
 CMP GP28,  GP21 ; Check if it's zero (no pointer found to matching command struct)
 JEQ :cmd_fail  ; Jump back to get input again
@@ -407,16 +407,16 @@ LD GP23, GP1, #0 ; Load first prompt pointer
 PUSH GP0 ; Struct pointer, command struct array pointer 
 CALLI :get_input ; Get input again
 MOV GP23, GP28 ; Pointer to text of value we want
-CALLI :digit_loop
-POP GP0
+CALLI :ascii_to_binary
+POP GP0 ; command struct array pointer
 LD GP1, GP0, #1 ; Load the pointer again
 LD GP23, GP1, #1 ; Second prompt pointer
-PUSH GP0
-PUSH GP28 ; Save the return to stack -> prompts -> command struct -> struct array
+PUSH GP0 ; struct pointer, command struct array pointers
+PUSH GP28 ; binary_val, struct pointer, command struct array pointers
 CALLI :get_input
 MOV GP23, GP28 ; Pointer to text of value we want
-CALLI :digit_loop
-POP GP5       ; Pop 1st value to GP5 stack: prompts -> struct -> struct array
+CALLI :ascii_to_binary
+POP GP5       ; Pop 1st value to GP5 stack: struct, command struct array pointers
 MOV GP6, GP28 ; Mov 2nd value to GP6
 
 ADD GP5, GP6  ; Add them together
@@ -475,13 +475,14 @@ build_ascii:
     skip_new_word:
     ST GP6, GP10, #0 ; Store the final word
   done_ascii:
-    POP GP0
+    POP GP0 ;
     LD GP1, GP0, #1 ; prompt array pointer
     LD GP23, GP1, #2 ; Third prompt pointer 
     CALLI :display_output
     MOV GP23, GP11 ; Put number in there
     CALLI :display_output
     ST GP20, GP31, #1 ; New Line
+    POP GP10
     JMP :main_loop ; Next command
 
 get_digit:
@@ -542,38 +543,42 @@ get_digit:
 ;
 ; Below function takes a pointer to a char array, and builds an actual number from them.
 ; i.e. given ascii characters "1234", it will produce GP28 containing 0x4D2
+ascii_to_binary:
+LLI GP5, #0
 digit_loop:
-  LD GP3, GP23, #0 ; Load the word
+  LD GP3, GP23, #0 ; Load the word 49504848
   MOV GP4, GP3    ; Copy it
-  SHRI GP4, #24   ; Get top character
-  SUBI GP4, #48   ; Subtract 48 to get the digit value
-  MULI GP5, #10   ; Multiply by 10 as we add a digit
-  ADD GP5, GP4    ; Add to GP5
-  MOV GP4, GP3    ; Copy again
-  SHLI GP4, #8    ; Shift up 8 bits to discard the top 8
-  SHRI GP4, #24   ; Shift down 24 (there's 8 bits left)
-  CMP GP4, GP21   ; Check if null character
-  JEQ :end_of_number ; No more to process
-  MULI GP5, #10   ; Multiply current value by 10 again
-  SUBI GP4, #48   ; Subtract 48 from current character
-  ADD GP5, GP4    ; Add digit
-  MOV GP4, GP3    ; copy again
-  SHLI GP4, #16   ; Discard top 16 bits
-  SHRI GP4, #24    ; Discard bottom 8 bits
-  CMP GP4, GP21   ; Check if null character
+  SHRI GP4, #24   ; Get top character 49
+  CMP GP4, GP21   ; Check if null
+  JEQ :end_of_number ; Jump to end
+  SUBI GP4, #48   ; Subtract 48 to get the digit value 1
+  MULI GP5, #10   ; Multiply by 10 as we add a digit 0 x 10 = 0
+  ADD GP5, GP4    ; Add to GP5 0 + 1 = 1
+  MOV GP4, GP3    ; Copy again 49504848
+  SHLI GP4, #8    ; Shift up 8 bits to discard the top 8 50484800
+  SHRI GP4, #24   ; Shift down 24 (there's 8 bits left) 00000050
+  CMP GP4, GP21   ; Check if null character 
+  JEQ :end_of_number ; No more to process 
+  MULI GP5, #10   ; Multiply current value by 10 again 1 x 10 = 10
+  SUBI GP4, #48   ; Subtract 48 from current character 50-48 = 2
+  ADD GP5, GP4    ; Add digit 10 + 2 = 12
+  MOV GP4, GP3    ; copy again 49504848
+  SHLI GP4, #16   ; Discard top 16 bits 48480000
+  SHRI GP4, #24    ; Discard bottom 8 bits 00000048 
+  CMP GP4, GP21   ; Check if null character 
   JEQ :end_of_number
-  MULI GP5, #10   ; Multiply current value by 10 again
-  SUBI GP4, #48   ; Subtract 48
-  ADD GP5, GP4    ; Add digit
-  MOV GP4, GP3    ; Copy again
-  SHLI GP4, #24   ; Discard top 24 bits
-  SHRI GP4, #24   ; Put bottom 8 bits back in bottom 8
-  CMP GP4, GP21   ; check if null character
+  MULI GP5, #10   ; Multiply current value by 10 again 12 x 10 = 120
+  SUBI GP4, #48   ; 
+  ADD GP5, GP4    ; Add digit 120 + 0 = 120
+  MOV GP4, GP3    ; Copy again 49584848
+  SHLI GP4, #24   ; Discard top 24 bits 48000000
+  SHRI GP4, #24   ; Put bottom 8 bits back in bottom 8 00000048
+  CMP GP4, GP21   ; check if null character No
   JEQ :end_of_number
-  MULI GP5, #10   ; Multiply current value by 10 again 
-  SUBI GP4, #48
-  ADD GP5, GP4    ; Add digit
-  ADDI GP2, #1    ; Add 1 to the input pointer
+  MULI GP5, #10   ; Multiply current value by 10 again 120 x 10 = 1200
+  SUBI GP4, #48   ; 48-48 = 0
+  ADD GP5, GP4    ; Add digit 1200 + 0 = 1200
+  ADDI GP23, #1    ; Add 1 to the input pointer 
   JMP :digit_loop ; Loop again
   
   end_of_number: 
@@ -665,7 +670,7 @@ get_input:
     CALLI :malloc
     MOV GP6, GP28
     ST GP2, GP6, #0 ; Store on heap
-    CMP GP5, GP21 ; If GP5 is zero, we don't have a begining yet, use GP6
+    CMP GP5, GP21 ; If GP5 is zero, we don't have a beginning yet, use GP6
     JNE :use_gp5
     MOV GP28, GP6
     RET
@@ -686,7 +691,9 @@ get_input:
 
 extend_and_push_heap:
   LLI GP23, #1
+  PUSH GP0
   CALLI :malloc
+  POP GP0
   ST GP2, GP28, #0
   CMP GP5, GP21 ; check if gp5 is zero
   JNE :skip_set_ret

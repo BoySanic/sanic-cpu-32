@@ -142,8 +142,8 @@ instruction_table = {
     "SUB":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000001),
     "MUL":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000010),
     "DIV":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000011),
-    "OR" :      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000100),
-    "AND":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000101),
+    "OR" :      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000101),
+    "AND":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000100),
     "XOR":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000110),
     "SHL":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1000111),
     "SHR":      Opcode(Operands.Register,           Operands.Register,              None,                           None, 0b1001000),
@@ -152,8 +152,8 @@ instruction_table = {
     "SUBI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010001),
     "MULI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010010),
     "DIVI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010011),
-    "ORI" :     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010100),
-    "ANDI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010101),
+    "ORI" :     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010101),
+    "ANDI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010100),
     "XORI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010110),
     "SHLI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1010111),
     "SHRI":     Opcode(Operands.Register,           Operands.IntegerImmediate20,    None,                           None, 0b1011000),
@@ -272,20 +272,16 @@ with open(assembly_file, "r") as af:
                 op1_comment = True
                 op2_comment = True
                 op3_comment = True
-            if operand_2[0] == ':':
-                # Is label
+            if operand_2.strip(':').strip() in labels:
                 if debug:
-                    print(f"{operand_2} is a label (top)")
-                if operand_2.strip(':').strip() in labels:
-                    if debug:
-                        print(f"label exists in dict")
-                    # Replace label with instruction number to allow the jump to work.
-                    label_value = labels[operand_2.strip(':').strip()]
-                    operand_2 = f"#{(label_value - line_count)}"# Set operand_2 to the difference
-                    if vars_and_stuff:
-                        print(f"translated op: {operand_2}")
-                    # Added complexity as well if the target line is more than 16-bits of lines away? It should be rejected until we implement some kind of far branching
-    
+                    print(f"label exists in dict")
+                # Replace label with instruction number to allow the jump to work.
+                label_value = labels[operand_2.strip(':').strip()]
+                operand_2 = f"#{(label_value - line_count)}"# Set operand_2 to the difference
+                if vars_and_stuff:
+                    print(f"translated op: {operand_2}")
+                # Added complexity as well if the target line is more than 16-bits of lines away? It should be rejected until we implement some kind of far branching
+
         elif opcode.operand_1 != None:
             operand_1 = arguments[0].strip().split(';')[0]
             if len(arguments[0].strip().split(';')) > 1:

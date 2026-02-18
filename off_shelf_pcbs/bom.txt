@@ -1,0 +1,5 @@
+
+
+Register file:
+  64 x 74LVC16373ADGVRE4 (16 bits each, 32 bits per reg, 32 registers) $57.22
+

@@ -1,0 +1,59 @@
+Interpreter more fleshed out:
+
+Command types:
+Command -> response type commands (tags?)
+
+Arithmetic (add, mul, div, sub, etc - Same code but changes the operation that's done)
+Help (list commands and their descriptions)
+
+
+Adding a command:
+
+add "guh" "Goog..."
+Then when you run "guh", it says "Goog..."
+How:
+1. Extend command table, it'll need to recognize the current memory address is too restrictive
+   And move the existing command struct pointer table to append another pointer to it.
+   It'll also then replace the register we've been using to store the location of that table with a pointer
+   to the new location.
+    - Well... There's no recognizing to be done. It just simply can know that because we won't allocate more space for it.
+2. Create the struct with two pointers (we know the word length (1), we know the response length (2))
+3. Allocate memory for the command word itself and the response pointer table (2, 1 for pointer, 1 for null), 
+   store the pointers in the respective positions in the struct
+4. Store the word in the memory we were given (null byte)
+5. Store the response table pointer in the memory we were given (leaving the 2nd one null to indicate the end)
+6. Store the response at the memory location indicates by the table pointer
+7. Done?
+
+
+"Notepad"
+
+- notepad foo.txt
+
+Text file struct:
+pointer table like the command struct pointer table
+textfile 
+struct textfile {
+  *int32_t file_name_location;
+  *int32_t file_begin_location;
+}
+
+The program itself:
+
+1. Read the entire file onto tty (copy it into stack? Or heap? Idk?)
+2. Arrow keys don't exist, adopt VIM's keybindings
+    h - left j - down k - up l - right
+3. How do we indicate where the cursor is? Pipe character that moves around?
+4. i to begin inserting, then all keypresses put data into the buffer
+5. Ctrl+L to escape out of insert mode
+6. : to begin command input, :w to write the file data, :wq t write and quit back to interpreter, 
+   :q to quit to interpreter without saving the buffer
+
+
+
+Heap memory management needs improvement:
+Current it just tracks the next address that hasn't been assigned, and assigns that. Very leaky since we never re-use old, freed addresses.
+It should have a "queue" of addresses to assign, and it replenishes them when needed with more from the end.
+This allows `free()` to add memory addresses to the queue for re-use
+
+Assembler self-hosted?

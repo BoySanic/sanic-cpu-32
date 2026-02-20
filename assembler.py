@@ -201,6 +201,8 @@ def pack_operand(instruction, operand, offset, bit_width):
 # If any are found that don't match an instruction, error with the line # and reason like a compiler.
 instructions =  []
 instruction_opcode_decoded = []
+binary_data = []
+binary_data_pointers = {}
 labels = {}
 variables = {}
 with open(assembly_file, "r") as af:
@@ -259,7 +261,33 @@ with open(assembly_file, "r") as af:
             continue
         line_count += 1
         opcode = instruction_table[opcode_str]
-        arguments = stripped_line[len(opcode_str):].strip().split(",")
+        line_without_opcode = stripped_line[len(opcode_str):].strip()
+        arguments = line_without_opcode.split(",")
+        if opcode_str == "BD":
+            # Binary data stuff
+            if line_without_opcode[0] == '"':
+                if line_without_opcode[len(line_without_opcode)-1] == '"':
+                    # We have a complete string
+                    string_val = line_without_opcode[1..(len(line_witout_opcode)-2)]
+                    byte_count = len(string_val)
+                    for(char in string_val):
+                        binary_data.append()
+                else:
+                    operand_start = line.find(line_without_opcode)
+                    right_justified_error = " " * operand_start + "^ Missing closing \" on string value"
+                    errors.append( line + "\n" +  right_justified_error)
+                    continue
+            elif line_witout_opcode[0] == "#":
+                # It's a number of some kind
+            elif line_without_opcode[0] == '\'':
+                if line_without_opcode[len(line_without_opcode)-1] == '\'':
+                
+                else:
+                    operand_start = line.find(line_without_opcode)
+                    right_justified_error = " " * operand_start + "^ Missing closing \' on char value"
+                    errors.append( line + "\n" +  right_justified_error)
+                    continue
+
         operand_1 = ""
         operand_2 = ""
         operand_3 = ""

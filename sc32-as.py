@@ -330,7 +330,7 @@ class Context:
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("file", nargs="+")
-    parser.add_argument("--out")
+    parser.add_argument("--out", required=True)
 
     args = parser.parse_args()
     module = Module()

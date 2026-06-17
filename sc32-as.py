@@ -34,7 +34,7 @@ class ImmediateOperand(Operand):
         else:
             token = parser.expect(TokenKind.IDENTIFIER)
             text = parser.file.get_text(token)
-            symbol = context.module.get_symbol(text)
+            symbol = context.module.get_symbol(context.name, text)
             origin = len(context.section.data)
             relocation = Relocation(symbol, origin, self.offset, self.bits, self.shift, self.relative)
             context.section.relocations.append(relocation)
@@ -160,7 +160,7 @@ class Symbol:
 class Module:
     def __init__(self):
         self.sections: dict[str, Section] = {}
-        self.symbols: dict[str, Symbol] = {}
+        self.symbols: dict[str, dict[str, Symbol]] = {}
 
     def get_section(self, name: str):
         if name in self.sections:
@@ -170,12 +170,15 @@ class Module:
         self.sections[name] = section
         return section
 
-    def get_symbol(self, name: str):
-        if name in self.symbols:
-            return self.symbols[name]
+    def get_symbol(self, file_name: str, name: str):
+        if file_name not in self.symbols:
+            self.symbols[file_name] = {}
 
+        if name in self.symbols[file_name]:
+            return self.symbols[file_name][name]
+        
         symbol = Symbol(name)
-        self.symbols[name] = symbol
+        self.symbols[file_name][name] = symbol
         return symbol
 
 class TokenKind(Enum):
@@ -293,8 +296,9 @@ class Parser:
         parser.unexpected_token()
 
 class Context:
-    def __init__(self, module: Module):
+    def __init__(self, file_name: str, module: Module):
         self.module = module
+        self.name = file_name
         self.section = module.get_section(".text")
 
     def parse(self, file_name: str):
@@ -309,7 +313,7 @@ class Context:
                 identifier = file.get_text(token)
 
                 if parser.match(TokenKind.COLON):
-                    symbol = self.module.get_symbol(identifier)
+                    symbol = self.module.get_symbol(file_name, identifier)
 
                     if symbol.label:
                         file.error(token.start, f"duplicate symbol {identifier!r}")
@@ -361,9 +365,9 @@ if __name__ == "__main__":
     module = Module()
 
     for file_name in args.file:
-        context = Context(module)
+        context = Context(file_name, module)
         context.parse(file_name)
-
+    
     sections = list(module.sections.values())
     sections.sort(key=lambda section: section.name != ".main")
     offset = 0
@@ -371,6 +375,15 @@ if __name__ == "__main__":
     for section in sections:
         section.offset = offset
         offset += len(section.data)
+
+    for section in sections:
+        for relocation in section.relocations:
+            if not relocation.symbol.label:
+                for file_name in module.symbols:
+                    if relocation.symbol.name in module.symbols[file_name]:
+                        symbol = module.symbols[file_name][relocation.symbol.name]
+                        if symbol.label:
+                            relocation.symbol.label = symbol.label
 
     for section in sections:
         for relocation in section.relocations:
